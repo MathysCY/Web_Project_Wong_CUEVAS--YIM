@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="EFREI CS Department — Student Life. Discover clubs, events, hackathons, campus activities, and the vibrant community that makes EFREI unique.">
+  <meta name="keywords" content="EFREI student life, clubs, hackathon, events, campus, community">
+  <meta name="author" content="Mathys CUEVAS--YIM, Erwan WONG">
+  <title>Student Life — EFREI Computer Science</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/animations.css">
+  <link rel="stylesheet" href="../assets/css/responsive.css">
+  <style>
+    /* ---- STUDENT LIFE STYLES ---- */
+
+    /* Gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-sm);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform var(--transition-slow);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+
+    .gallery-item-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(15, 23, 42, 0.8) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity var(--transition-base);
+      display: flex;
+      align-items: flex-end;
+      padding: var(--space-md);
+    }
+
+    .gallery-item:hover .gallery-item-overlay {
+      opacity: 1;
+    }
+
+    .gallery-caption {
+      font-size: 0.8rem;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    /* Clubs */
+    .clubs-section {
+      background: var(--bg-secondary);
+    }
+
+    .club-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+      transition: all var(--transition-base);
+    }
+
+    .club-card:hover {
+      border-color: rgba(37, 99, 235, 0.25);
+      background: rgba(37, 99, 235, 0.04);
+      transform: translateY(-4px);
+    }
+
+    .club-icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+      width: 54px;
+      height: 54px;
+      border-radius: var(--radius-md);
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .club-info h3 {
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .club-info p {
+      font-size: 0.8rem;
+    }
+
+    .club-members {
+      font-size: 0.75rem;
+      color: var(--color-accent);
+      margin-top: 0.35rem;
+      font-weight: 600;
+    }
+
+    /* Testimonials */
+    .testimonials-section {
+      background: var(--bg-primary);
+    }
+
+    .testimonial-card {
+      background: var(--surface);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      position: relative;
+    }
+
+    .testimonial-quote {
+      font-size: 3rem;
+      line-height: 1;
+      color: var(--color-primary);
+      margin-bottom: var(--space-sm);
+      font-family: 'Georgia', serif;
+    }
+
+    .testimonial-text {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      margin-bottom: var(--space-lg);
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .testimonial-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1rem;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .testimonial-author-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .testimonial-author-role {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Calendar styles */
+    .calendar-section {
+      background: var(--bg-secondary);
+    }
+
+    #events-calendar {
+      background: var(--surface);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      padding: var(--space-md);
+    }
+
+    .calendar-header {
+      padding: var(--space-md);
+    }
+
+    .calendar-month-label {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .calendar-nav-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      color: var(--text-primary);
+      cursor: pointer;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition-fast);
+    }
+
+    .calendar-nav-btn:hover {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      padding: var(--space-sm) 0;
+    }
+
+    .calendar-weekdays-row {
+      margin-bottom: 2px;
+    }
+
+    .calendar-weekday {
+      text-align: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      padding: 0.35rem 0;
+    }
+
+    .calendar-cell {
+      min-height: 52px;
+      border-radius: var(--radius-sm);
+      padding: 0.35rem 0.4rem;
+      background: var(--glass);
+      border: 1px solid transparent;
+      transition: all var(--transition-fast);
+      position: relative;
+    }
+
+    .calendar-cell:hover {
+      background: rgba(37, 99, 235, 0.06);
+      border-color: rgba(37, 99, 235, 0.15);
+    }
+
+    .calendar-empty {
+      background: transparent;
+      border: none;
+    }
+
+    .calendar-today {
+      background: rgba(37, 99, 235, 0.1);
+      border-color: rgba(37, 99, 235, 0.35);
+    }
+
+    .calendar-today .calendar-day-num {
+      color: var(--color-primary);
+      font-weight: 700;
+    }
+
+    .has-event {
+      cursor: pointer;
+    }
+
+    .has-event:hover {
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+
+    .calendar-day-num {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      display: block;
+    }
+
+    .calendar-event-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      margin-top: 2px;
+    }
+
+    .event-seminar {
+      background: var(--color-primary);
+    }
+
+    .event-event {
+      background: var(--color-accent);
+    }
+
+    .event-hackathon {
+      background: var(--color-gold);
+    }
+
+    .event-holiday {
+      background: var(--color-success);
+    }
+
+    /* Tooltip */
+    .event-tooltip {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: 100;
+      background: var(--bg-secondary);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem;
+      min-width: 200px;
+      box-shadow: var(--shadow-lg);
+      animation: fadeInDown 0.2s ease;
+    }
+
+    .event-tooltip strong {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .event-tooltip ul {
+      list-style: none;
+    }
+
+    .event-item {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.2rem 0;
+    }
+
+    .event-dot-label {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .event-item.event-seminar .event-dot-label {
+      background: var(--color-primary);
+    }
+
+    .event-item.event-event .event-dot-label {
+      background: var(--color-accent);
+    }
+
+    .event-item.event-hackathon .event-dot-label {
+      background: var(--color-gold);
+    }
+
+    .event-item.event-holiday .event-dot-label {
+      background: var(--color-success);
+    }
+
+    .tooltip-close {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 0.9rem;
+      padding: 2px;
+    }
+
+    /* Event legend */
+    .calendar-legend {
+      display: flex;
+      gap: var(--space-lg);
+      flex-wrap: wrap;
+      margin-top: var(--space-md);
+      justify-content: center;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="scroll-progress" role="progressbar" aria-label="Page scroll progress"></div>
+
+  <!-- ===== HEADER ===== -->
+  <header id="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="site-logo" aria-label="EFREI CS Department Home">
+        <div class="logo-mark" aria-hidden="true">E</div>
+        <div class="logo-text">
+          <span class="logo-title">EFREI Paris</span>
+          <span class="logo-sub">Computer Science Dept.</span>
+        </div>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="faculty.html">Faculty</a></li>
+          <li><a href="student-life.html" class="active">Student Life</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false"
+        aria-controls="mobile-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="faculty.html">Faculty</a></li>
+      <li><a href="student-life.html" class="active">Student Life</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="about.html">About the Project</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== PAGE HERO ===== -->
+  <main>
+    <section class="page-hero" aria-label="Student life hero">
+      <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
+      <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
+      <div class="container page-hero-content">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="../index.html">Home</a>
+          <span aria-hidden="true">›</span>
+          <span aria-current="page">Student Life</span>
+        </nav>
+        <span class="section-label">Campus Experience</span>
+        <h1 class="mt-md">Student <span class="gradient-text">Life</span></h1>
+        <p class="section-desc mt-md" style="margin-left:0; text-align:left;">
+          At EFREI, learning goes beyond the classroom. Discover a thriving community of curious, creative, and driven
+          students.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== GALLERY ===== -->
+    <section class="section" style="background:var(--bg-primary);" aria-label="Campus photo gallery">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">Gallery</span>
+          <h2 class="section-title">Life Through the <span>Lens</span></h2>
+          <p class="section-desc">Click any photo to view it full screen.</p>
+        </div>
+
+        <div class="gallery-grid reveal">
+
+          <div class="gallery-item" data-lightbox="../assets/images/Campus.png"
+            data-caption="EFREI Campus — Villejuif, Paris" role="button" tabindex="0"
+            aria-label="View full image: EFREI Campus exterior">
+            <img src="../assets/images/Campus.png" alt="EFREI campus modern architecture" loading="lazy">
+            <div class="gallery-item-overlay">
+              <span class="gallery-caption">EFREI Campus</span>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-lightbox="../assets/images/cs_lab.png"
+            data-caption="Computer Science Laboratory" role="button" tabindex="0" aria-label="View full image: CS Lab">
+            <img src="../assets/images/cs_lab.png" alt="Students coding in the CS lab" loading="lazy">
+            <div class="gallery-item-overlay">
+              <span class="gallery-caption">CS Lab</span>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-lightbox="../assets/images/student_hackathon.png"
+            data-caption="Spring Hackathon 2026" role="button" tabindex="0"
+            aria-label="View full image: Spring Hackathon">
+            <img src="../assets/images/student_hackathon.png" alt="Students collaborating at hackathon" loading="lazy">
+            <div class="gallery-item-overlay">
+              <span class="gallery-caption">Spring Hackathon 2026</span>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-lightbox="../assets/images/campus_library.png" data-caption="Digital Library"
+            role="button" tabindex="0" aria-label="View full image: Digital Library">
+            <img src="../assets/images/campus_library.png" alt="EFREI digital library interior" loading="lazy">
+            <div class="gallery-item-overlay">
+              <span class="gallery-caption">Digital Library</span>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-lightbox="../assets/images/faculty_1.png"
+            data-caption="Faculty at EFREI — Dedication to Excellence" role="button" tabindex="0"
+            aria-label="View full image: Faculty member">
+            <img src="../assets/images/faculty_1.png" alt="Professor in lecture hall" loading="lazy">
+            <div class="gallery-item-overlay">
+              <span class="gallery-caption">Faculty Excellence</span>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-lightbox="../assets/images/student_hackathon.png"
+            data-caption="Collaborative Innovation" role="button" tabindex="0"
+            aria-label="View full image: Collaborative innovation event">
+            <img src="../assets/images/student_hackathon.png" alt="Students collaborating on a project" loading="lazy"
+              style="filter:hue-rotate(30deg);">
+            <div class="gallery-item-overlay">
+              <span class="gallery-caption">Collaborative Innovation</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== STUDENT CLUBS ===== -->
+    <section class="clubs-section section" aria-label="Student clubs and associations">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">Community</span>
+          <h2 class="section-title">Clubs &amp; <span>Associations</span></h2>
+          <p class="section-desc">Find your passion, meet like-minded peers, and build skills beyond your coursework.
+          </p>
+        </div>
+
+        <div class="grid-2">
+
+          <div class="club-card reveal">
+            <div class="club-icon" aria-hidden="true">🤖</div>
+            <div class="club-info">
+              <h3>EFREI AI Club</h3>
+              <p>Weekly workshops on ML techniques, competitions (Kaggle, NeurIPS challenges), and project showcases.
+              </p>
+              <p class="club-members">👥 142 members</p>
+            </div>
+          </div>
+
+          <div class="club-card reveal delay-1">
+            <div class="club-icon" aria-hidden="true">🔐</div>
+            <div class="club-info">
+              <h3>CyberEFREI</h3>
+              <p>CTF competition team, ethical hacking workshops, and cybersecurity awareness campaigns on campus.</p>
+              <p class="club-members">👥 89 members</p>
+            </div>
+          </div>
+
+          <div class="club-card reveal">
+            <div class="club-icon" aria-hidden="true">🎮</div>
+            <div class="club-info">
+              <h3>GameDev Lab</h3>
+              <p>Game design and development using Unity and Unreal Engine. Annual game jam and publishing on itch.io.
+              </p>
+              <p class="club-members">👥 76 members</p>
+            </div>
+          </div>
+
+          <div class="club-card reveal delay-1">
+            <div class="club-icon" aria-hidden="true">🌱</div>
+            <div class="club-info">
+              <h3>GreenTech EFREI</h3>
+              <p>Using technology to address environmental challenges. Partners with local NGOs and runs sustainability
+                hackathons.</p>
+              <p class="club-members">👥 64 members</p>
+            </div>
+          </div>
+
+          <div class="club-card reveal">
+            <div class="club-icon" aria-hidden="true">💼</div>
+            <div class="club-info">
+              <h3>Junior Enterprise EFREI</h3>
+              <p>Student-run consulting firm providing real CS services to businesses, from web development to data
+                analysis.</p>
+              <p class="club-members">👥 55 members</p>
+            </div>
+          </div>
+
+          <div class="club-card reveal delay-1">
+            <div class="club-icon" aria-hidden="true">🎵</div>
+            <div class="club-info">
+              <h3>Arts &amp; Culture Bureau</h3>
+              <p>Event management, music, arts, and cultural exchange. Organizes annual gala, film screenings, and
+                international weeks.</p>
+              <p class="club-members">👥 210 members</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== EVENTS CALENDAR ===== -->
+    <section class="calendar-section section" aria-label="Upcoming events calendar">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">What's On</span>
+          <h2 class="section-title">Events <span>Calendar</span></h2>
+          <p class="section-desc">Click on highlighted dates to see event details. Use arrows to navigate months.</p>
+        </div>
+
+        <div class="reveal" style="max-width:720px;margin:0 auto;">
+          <div id="events-calendar" role="application" aria-label="Interactive events calendar"></div>
+
+          <div class="calendar-legend" role="list" aria-label="Event type legend">
+            <div class="legend-item" role="listitem">
+              <span class="legend-dot" style="background:var(--color-primary);" aria-hidden="true"></span>
+              Seminar
+            </div>
+            <div class="legend-item" role="listitem">
+              <span class="legend-dot" style="background:var(--color-accent);" aria-hidden="true"></span>
+              Event
+            </div>
+            <div class="legend-item" role="listitem">
+              <span class="legend-dot" style="background:var(--color-gold);" aria-hidden="true"></span>
+              Hackathon
+            </div>
+            <div class="legend-item" role="listitem">
+              <span class="legend-dot" style="background:var(--color-success);" aria-hidden="true"></span>
+              Holiday
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== STUDENT TESTIMONIALS ===== -->
+    <section class="testimonials-section section" aria-label="Student testimonials">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">Student Voice</span>
+          <h2 class="section-title">What Our <span>Students Say</span></h2>
+        </div>
+
+        <div class="grid-3">
+
+          <div class="testimonial-card reveal">
+            <div class="testimonial-quote" aria-hidden="true">"</div>
+            <p class="testimonial-text">EFREI gave me both the technical depth and the soft skills to navigate a startup
+              environment. Graduating here opened so many doors — I had 3 job offers before even finishing my Master's.
+            </p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar" aria-hidden="true">AL</div>
+              <div>
+                <p class="testimonial-author-name">Alexandre L.</p>
+                <p class="testimonial-author-role">MSc AI & ML, Class of 2025 — Now at DeepMind Paris</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card reveal delay-1">
+            <div class="testimonial-quote" aria-hidden="true">"</div>
+            <p class="testimonial-text">The cybersecurity lab at EFREI is world-class. I competed in international CTFs
+              with my team and that experience was directly valued in my interviews. The community is what makes it
+              special.</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar" aria-hidden="true">CM</div>
+              <div>
+                <p class="testimonial-author-name">Clara M.</p>
+                <p class="testimonial-author-role">BSc CS + MSc Cybersecurity — Now at ANSSI</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card reveal delay-2">
+            <div class="testimonial-quote" aria-hidden="true">"</div>
+            <p class="testimonial-text">Doing my apprenticeship (alternance) while studying at EFREI was the perfect
+              formula. I had real responsibilities at my company from day one, and my coursework directly applied to my
+              work.</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar" aria-hidden="true">KD</div>
+              <div>
+                <p class="testimonial-author-name">Kofi D.</p>
+                <p class="testimonial-author-role">MSc Software Architecture — Apprenticeship at Capgemini</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer id="site-footer" aria-label="Site footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="../index.html" class="site-logo" aria-label="EFREI home">
+            <div class="logo-mark" aria-hidden="true">E</div>
+            <div class="logo-text">
+              <span class="logo-title">EFREI Paris</span>
+              <span class="logo-sub">Computer Science Dept.</span>
+            </div>
+          </a>
+          <p>Forming engineers who solve real-world challenges through technology, innovation, and ethics.</p>
+        </div>
+        <nav class="footer-col" aria-label="Quick links footer">
+          <h5>Navigation</h5>
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="courses.html">Courses</a></li>
+            <li><a href="faculty.html">Faculty</a></li>
+            <li><a href="student-life.html">Student Life</a></li>
+          </ul>
+        </nav>
+        <nav class="footer-col" aria-label="Resources footer">
+          <h5>Resources</h5>
+          <ul>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="student-life.html">Events Calendar</a></li>
+            <li><a href="courses.html">Program Catalogue</a></li>
+            <li><a href="about.html">About the Project</a></li>
+          </ul>
+        </nav>
+        <div class="footer-col">
+          <h5>Contact</h5>
+          <ul>
+            <li><a href="mailto:info@efrei.fr">info@efrei.fr</a></li>
+            <li><a href="tel:+33145123456">+33 (0)1 45 12 34 56</a></li>
+            <li>
+              <address style="font-style:normal;color:var(--text-secondary);font-size:0.875rem;">30-32 Avenue de la
+                République<br>94800 Villejuif, France</address>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 EFREI Paris — Computer Science Department. All rights reserved.</p>
+        <div class="footer-social" aria-label="Social media links">
+          <a href="#" class="social-icon" aria-label="LinkedIn">in</a>
+          <a href="#" class="social-icon" aria-label="Twitter/X">𝕏</a>
+          <a href="#" class="social-icon" aria-label="GitHub">⌥</a>
+          <a href="about.html" class="social-icon" aria-label="About the project">ℹ</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button id="back-to-top" aria-label="Scroll back to top">↑</button>
+
+  <script src="../assets/js/nav.js"></script>
+  <script src="../assets/js/animations.js"></script>
+  <script src="../assets/js/forms.js"></script>
+
+</body>
+
+</html>

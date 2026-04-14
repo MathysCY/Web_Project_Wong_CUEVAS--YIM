@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="EFREI CS Department — Courses and Training Programs. Explore Bachelor's, Master's, and specialized tracks in AI, cybersecurity, software engineering, and more.">
+  <meta name="keywords" content="EFREI, computer science courses, programs, AI, cybersecurity, software engineering, Master's, Bachelor's">
+  <meta name="author" content="Mathys CUEVAS--YIM, Erwan WONG">
+  <title>Courses &amp; Programs — EFREI Computer Science</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/animations.css">
+  <link rel="stylesheet" href="../assets/css/responsive.css">
+  <style>
+    /* ---- COURSES PAGE STYLES ---- */
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-lg);
+    }
+
+    .course-card {
+      background: var(--surface);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all var(--transition-base);
+    }
+
+    .course-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg), var(--shadow-glow);
+      border-color: rgba(99, 102, 241, 0.35);
+    }
+
+    .course-card-header {
+      padding: var(--space-lg);
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+    }
+
+    .course-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .course-card-info {
+      flex: 1;
+    }
+
+    .course-card-info h3 {
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .course-card-body {
+      padding: var(--space-lg);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .course-card-body p {
+      font-size: 0.875rem;
+      flex: 1;
+      margin-bottom: var(--space-md);
+    }
+
+    .course-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: auto;
+    }
+
+    .course-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Curriculum timeline */
+    .curriculum-section {
+      background: var(--bg-secondary);
+    }
+
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+    }
+
+    /* Schedule table section */
+    .schedule-section {
+      background: var(--bg-primary);
+    }
+
+    /* Research areas */
+    .tracks-section {
+      background: var(--bg-secondary);
+    }
+
+    .track-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl) var(--space-lg);
+      text-align: center;
+      transition: all var(--transition-base);
+    }
+
+    .track-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(34, 211, 238, 0.3);
+      box-shadow: var(--shadow-glow-accent);
+    }
+
+    .track-icon {
+      font-size: 2.5rem;
+      margin-bottom: var(--space-md);
+    }
+
+    .track-card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .track-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      justify-content: center;
+      margin-top: var(--space-md);
+    }
+
+    /* Skills progress */
+    .skill-row {
+      margin-bottom: var(--space-md);
+    }
+
+    .skill-label-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.35rem;
+    }
+
+    .skill-name {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .skill-pct {
+      font-size: 0.8rem;
+      color: var(--color-accent);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+<div id="scroll-progress" role="progressbar" aria-label="Page scroll progress"></div>
+
+<!-- ===== HEADER ===== -->
+<header id="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="site-logo" aria-label="EFREI CS Department Home">
+      <div class="logo-mark" aria-hidden="true">E</div>
+      <div class="logo-text">
+        <span class="logo-title">EFREI Paris</span>
+        <span class="logo-sub">Computer Science Dept.</span>
+      </div>
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="courses.html" class="active">Courses</a></li>
+        <li><a href="faculty.html">Faculty</a></li>
+        <li><a href="student-life.html">Student Life</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+  <ul>
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="courses.html" class="active">Courses</a></li>
+    <li><a href="faculty.html">Faculty</a></li>
+    <li><a href="student-life.html">Student Life</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="about.html">About the Project</a></li>
+  </ul>
+</nav>
+
+<!-- ===== PAGE HERO ===== -->
+<main>
+<section class="page-hero" aria-label="Courses page hero">
+  <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
+  <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
+  <div class="container page-hero-content">
+    <nav class="breadcrumb" aria-label="Breadcrumb navigation">
+      <a href="../index.html">Home</a>
+      <span aria-hidden="true">›</span>
+      <span aria-current="page">Courses &amp; Programs</span>
+    </nav>
+    <span class="section-label">Academic Offering</span>
+    <h1 class="mt-md">Courses &amp; <span class="gradient-text">Training Programs</span></h1>
+    <p class="section-desc mt-md" style="margin-left:0; text-align:left;">
+      From foundational computing to advanced specializations — our curriculum is designed
+      to prepare you for the challenges of tomorrow's technology landscape.
+    </p>
+  </div>
+</section>
+
+<!-- ===== FILTER + COURSE CARDS ===== -->
+<section class="section" aria-label="Course catalog">
+  <div class="container">
+
+    <div class="filter-tabs" role="group" aria-label="Filter courses by category">
+      <button class="filter-tab active" data-filter="all">All Programs</button>
+      <button class="filter-tab" data-filter="bachelor">Bachelor's</button>
+      <button class="filter-tab" data-filter="master">Master's</button>
+      <button class="filter-tab" data-filter="ai">AI &amp; Data</button>
+      <button class="filter-tab" data-filter="cyber">Cybersecurity</button>
+      <button class="filter-tab" data-filter="software">Software Eng.</button>
+      <button class="filter-tab" data-filter="network">Networks</button>
+    </div>
+
+    <div class="courses-grid" id="courses-grid">
+
+      <!-- Bachelor programs -->
+      <div class="course-card reveal" data-category="bachelor software">
+        <div class="course-card-header">
+          <div class="course-icon" style="background:linear-gradient(135deg,rgba(99,102,241,0.2),rgba(99,102,241,0.05));" aria-hidden="true">💻</div>
+          <div class="course-card-info">
+            <span class="tag tag-primary">Bachelor's</span>
+            <h3>Computer Science &amp; Engineering</h3>
+          </div>
+        </div>
+        <div class="course-card-body">
+          <p>A comprehensive 3-year program covering algorithms, data structures, operating systems, and software development methodologies.</p>
+          <div class="course-meta">
+            <span class="course-meta-item">⏱ 3 years</span>
+            <span class="course-meta-item">📍 On-campus</span>
+            <span class="course-meta-item">🎓 180 ECTS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-card reveal delay-1" data-category="bachelor ai">
+        <div class="course-card-header">
+          <div class="course-icon" style="background:linear-gradient(135deg,rgba(34,211,238,0.2),rgba(34,211,238,0.05));" aria-hidden="true">🤖</div>
+          <div class="course-card-info">
+            <span class="tag tag-accent">Bachelor's</span>
+            <h3>Artificial Intelligence &amp; Machine Learning</h3>
+          </div>
+        </div>
+        <div class="course-card-body">
+          <p>Foundational AI track covering mathematical foundations, Python programming, supervised learning, and neural networks.</p>
+          <div class="course-meta">
+            <span class="course-meta-item">⏱ 3 years</span>
+            <span class="course-meta-item">📍 On-campus</span>
+            <span class="course-meta-item">🎓 180 ECTS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-card reveal delay-2" data-category="bachelor network">
+        <div class="course-card-header">
+          <div class="course-icon" style="background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(245,158,11,0.05));" aria-hidden="true">🌐</div>
+          <div class="course-card-info">
+            <span class="tag tag-gold">Bachelor's</span>
+            <h3>Networks &amp; Telecommunications</h3>
+          </div>
+        </div>
+        <div class="course-card-body">
+          <p>Study network architectures, protocols, wireless communications, and cloud infrastructure in a hands-on environment.</p>
+          <div class="course-meta">
+            <span class="course-meta-item">⏱ 3 years</span>
+            <span class="course-meta-item">📍 On-campus</span>
+            <span class="course-meta-item">🎓 180 ECTS</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Master programs -->
+      <div class="course-card reveal" data-category="master ai">
+        <div class="course-card-header">
+          <div class="course-icon" style="background:linear-gradient(135deg,rgba(99,102,241,0.25),rgba(34,211,238,0.1));" aria-hidden="true">🧠</div>
+          <div class="course-card-info">
+            <span class="tag tag-primary">Master's</span>
+            <h3>Deep Learning &amp; Computer Vision</h3>
+          </div>
+        </div>
+        <div class="course-card-body">
+          <p>Advanced specialization in convolutional networks, transformers, generative models, and real-world vision applications.</p>
+          <div class="course-meta">
+            <span class="course-meta-item">⏱ 2 years</span>
+            <span class="course-meta-item">📍 Hybrid</span>
+            <span class="course-meta-item">🎓 120 ECTS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-card reveal delay-1" data-category="master cyber">
+        <div class="course-card-header">
+          <div class="course-icon" style="background:linear-gradient(135deg,rgba(239,68,68,0.2),rgba(239,68,68,0.05));" aria-hidden="true">🔐</div>
+          <div class="course-card-info">
+            <span class="tag" style="background:rgba(239,68,68,0.15);color:#f87171;border-color:rgba(239,68,68,0.3);">Master's</span>
+            <h3>Cybersecurity &amp; Digital Forensics</h3>
+          </div>
+        </div>
+        <div class="course-card-body">
+          <p>Prepare for an expert career in system security, penetration testing, incident response, and digital forensics investigation.</p>
+          <div class="course-meta">
+            <span class="course-meta-item">⏱ 2 years</span>
+            <span class="course-meta-item">📍 On-campus</span>
+            <span class="course-meta-item">🎓 120 ECTS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-card reveal delay-2" data-category="master software">
+        <div class="course-card-header">
+          <div class="course-icon" style="background:linear-gradient(135deg,rgba(16,185,129,0.2),rgba(16,185,129,0.05));" aria-hidden="true">⚙️</div>
+          <div class="course-card-info">
+            <span class="tag" style="background:rgba(16,185,129,0.15);color:#34d399;border-color:rgba(16,185,129,0.3);">Master's</span>
+            <h3>Software Architecture &amp; DevOps</h3>
+          </div>
+        </div>
+        <div class="course-card-body">
+          <p>Advanced software design patterns, distributed systems, microservices, CI/CD pipelines, and cloud-native development.</p>
+          <div class="course-meta">
+            <span class="course-meta-item">⏱ 2 years</span>
+            <span class="course-meta-item">📍 Hybrid</span>
+            <span class="course-meta-item">🎓 120 ECTS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-card reveal" data-category="master ai">
+        <div class="course-card-header">
+          <div class="course-icon" style="background:linear-gradient(135deg,rgba(168,85,247,0.2),rgba(168,85,247,0.05));" aria-hidden="true">📊</div>
+          <div class="course-card-info">
+            <span class="tag" style="background:rgba(168,85,247,0.15);color:#c084fc;border-color:rgba(168,85,247,0.3);">Master's</span>
+            <h3>Data Science &amp; Big Data</h3>
+          </div>
+        </div>
+        <div class="course-card-body">
+          <p>Statistical learning, data pipelines, Hadoop, Spark, and visualization to extract insights from large-scale datasets.</p>
+          <div class="course-meta">
+            <span class="course-meta-item">⏱ 2 years</span>
+            <span class="course-meta-item">📍 Hybrid</span>
+            <span class="course-meta-item">🎓 120 ECTS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-card reveal delay-1" data-category="master network">
+        <div class="course-card-header">
+          <div class="course-icon" style="background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(245,158,11,0.05));" aria-hidden="true">📡</div>
+          <div class="course-card-info">
+            <span class="tag tag-gold">Master's</span>
+            <h3>Cloud Computing &amp; IoT</h3>
+          </div>
+        </div>
+        <div class="course-card-body">
+          <p>Design and manage modern cloud infrastructures and connected device ecosystems for Industry 4.0 applications.</p>
+          <div class="course-meta">
+            <span class="course-meta-item">⏱ 2 years</span>
+            <span class="course-meta-item">📍 Hybrid</span>
+            <span class="course-meta-item">🎓 120 ECTS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-card reveal delay-2" data-category="master cyber software">
+        <div class="course-card-header">
+          <div class="course-icon" style="background:linear-gradient(135deg,rgba(34,211,238,0.2),rgba(99,102,241,0.1));" aria-hidden="true">🛡️</div>
+          <div class="course-card-info">
+            <span class="tag tag-accent">Master's</span>
+            <h3>Embedded Systems &amp; Security</h3>
+          </div>
+        </div>
+        <div class="course-card-body">
+          <p>Low-level programming, RTOS, hardware security modules, and secure firmware development for critical systems.</p>
+          <div class="course-meta">
+            <span class="course-meta-item">⏱ 2 years</span>
+            <span class="course-meta-item">📍 On-campus</span>
+            <span class="course-meta-item">🎓 120 ECTS</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="no-results" id="courses-no-results" role="status" aria-live="polite">
+      <div class="no-results-icon" aria-hidden="true">🔍</div>
+      <p>No courses found for this category.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== COURSE SCHEDULE TABLE ===== -->
+<section class="schedule-section section" aria-label="Semester schedule">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">Academic Calendar</span>
+      <h2 class="section-title">Semester <span>Schedule</span></h2>
+      <p class="section-desc">Overview of core modules and credit hours for the Bachelor in Computer Science.</p>
+    </div>
+
+    <div class="table-wrapper reveal">
+      <table>
+        <caption style="text-align:left;padding:1rem 1.5rem;color:var(--text-muted);font-size:0.875rem;">
+          Bachelor of Computer Science — Year 1 &amp; 2 Core Modules
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">Module Code</th>
+            <th scope="col">Module Name</th>
+            <th scope="col">Semester</th>
+            <th scope="col">Hours/Week</th>
+            <th scope="col">ECTS Credits</th>
+            <th scope="col">Assessment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>CS101</td>
+            <td>Introduction to Programming (Python)</td>
+            <td>S1</td>
+            <td>4h</td>
+            <td>6</td>
+            <td>Practical + Exam</td>
+          </tr>
+          <tr>
+            <td>CS102</td>
+            <td>Mathematics for Computer Science</td>
+            <td>S1</td>
+            <td>4h</td>
+            <td>6</td>
+            <td>Written Exam</td>
+          </tr>
+          <tr>
+            <td>CS103</td>
+            <td>Digital Systems &amp; Logic</td>
+            <td>S1</td>
+            <td>3h</td>
+            <td>4</td>
+            <td>Lab + Exam</td>
+          </tr>
+          <tr>
+            <td>CS104</td>
+            <td>Web Development Fundamentals</td>
+            <td>S1</td>
+            <td>3h</td>
+            <td>4</td>
+            <td>Project</td>
+          </tr>
+          <tr>
+            <td>CS201</td>
+            <td>Data Structures &amp; Algorithms</td>
+            <td>S2</td>
+            <td>4h</td>
+            <td>6</td>
+            <td>Practical + Exam</td>
+          </tr>
+          <tr>
+            <td>CS202</td>
+            <td>Object-Oriented Programming (Java)</td>
+            <td>S2</td>
+            <td>4h</td>
+            <td>6</td>
+            <td>Project + Exam</td>
+          </tr>
+          <tr>
+            <td>CS203</td>
+            <td>Operating Systems</td>
+            <td>S2</td>
+            <td>3h</td>
+            <td>4</td>
+            <td>Lab Reports</td>
+          </tr>
+          <tr>
+            <td>CS204</td>
+            <td>Database Systems (SQL)</td>
+            <td>S2</td>
+            <td>3h</td>
+            <td>4</td>
+            <td>Project + Exam</td>
+          </tr>
+          <tr>
+            <td>CS301</td>
+            <td>Software Engineering Principles</td>
+            <td>S3</td>
+            <td>4h</td>
+            <td>6</td>
+            <td>Group Project</td>
+          </tr>
+          <tr>
+            <td>CS302</td>
+            <td>Computer Networks</td>
+            <td>S3</td>
+            <td>3h</td>
+            <td>4</td>
+            <td>Lab + Exam</td>
+          </tr>
+          <tr>
+            <td>CS303</td>
+            <td>Introduction to AI &amp; Machine Learning</td>
+            <td>S3</td>
+            <td>3h</td>
+            <td>4</td>
+            <td>Practical Project</td>
+          </tr>
+          <tr>
+            <td>CS304</td>
+            <td>Professional Internship</td>
+            <td>S4</td>
+            <td>—</td>
+            <td>10</td>
+            <td>Report + Defense</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4">Total Core Credits (Years 1–2)</td>
+            <td>64 ECTS</td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SPECIALIZATION TRACKS ===== -->
+<section class="tracks-section section" aria-label="Specialization tracks">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">Go Further</span>
+      <h2 class="section-title">Specialization <span>Tracks</span></h2>
+      <p class="section-desc">Choose your path and develop deep expertise in your area of passion.</p>
+    </div>
+
+    <div class="grid-3 reveal">
+
+      <div class="track-card">
+        <div class="track-icon" aria-hidden="true">🧠</div>
+        <h3>Artificial Intelligence</h3>
+        <p style="font-size:0.875rem;margin:0.5rem 0;">Deep learning, NLP, computer vision, and AI ethics for real-world deployment.</p>
+        <div class="track-skills">
+          <span class="tag tag-accent">Python</span>
+          <span class="tag tag-accent">TensorFlow</span>
+          <span class="tag tag-accent">PyTorch</span>
+          <span class="tag tag-accent">LLMs</span>
+        </div>
+      </div>
+
+      <div class="track-card">
+        <div class="track-icon" aria-hidden="true">🔐</div>
+        <h3>Cybersecurity</h3>
+        <p style="font-size:0.875rem;margin:0.5rem 0;">Ethical hacking, cryptography, incident response, and security architecture.</p>
+        <div class="track-skills">
+          <span class="tag tag-primary">Pentesting</span>
+          <span class="tag tag-primary">SIEM</span>
+          <span class="tag tag-primary">Forensics</span>
+          <span class="tag tag-primary">Zero-Trust</span>
+        </div>
+      </div>
+
+      <div class="track-card">
+        <div class="track-icon" aria-hidden="true">☁️</div>
+        <h3>Cloud &amp; DevOps</h3>
+        <p style="font-size:0.875rem;margin:0.5rem 0;">AWS, Azure, Kubernetes, CI/CD, and infrastructure-as-code for modern engineering.</p>
+        <div class="track-skills">
+          <span class="tag tag-gold">Docker</span>
+          <span class="tag tag-gold">K8s</span>
+          <span class="tag tag-gold">Terraform</span>
+          <span class="tag tag-gold">AWS</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Skills demand -->
+    <div class="card-glass reveal mt-xl" style="padding:var(--space-xl);">
+      <h3 style="margin-bottom:var(--space-lg);">Industry Skill Demand <span class="gradient-text">(2026)</span></h3>
+      <div class="grid-2" style="gap:var(--space-xl);">
+        <div>
+          <div class="skill-row">
+            <div class="skill-label-row"><span class="skill-name">Machine Learning / AI</span><span class="skill-pct">94%</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="94%"></div></div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-label-row"><span class="skill-name">Cloud Architecture</span><span class="skill-pct">88%</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="88%"></div></div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-label-row"><span class="skill-name">Cybersecurity</span><span class="skill-pct">91%</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="91%"></div></div>
+          </div>
+        </div>
+        <div>
+          <div class="skill-row">
+            <div class="skill-label-row"><span class="skill-name">Software Engineering</span><span class="skill-pct">86%</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="86%"></div></div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-label-row"><span class="skill-name">Data Science</span><span class="skill-pct">89%</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="89%"></div></div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-label-row"><span class="skill-name">DevOps &amp; Automation</span><span class="skill-pct">83%</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="83%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== FAQ ACCORDION ===== -->
+<section class="section" style="background:var(--bg-primary);" aria-label="Frequently asked questions">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">FAQ</span>
+      <h2 class="section-title">Common <span>Questions</span></h2>
+    </div>
+
+    <div class="accordion-group" style="max-width:760px;margin:0 auto;" role="list">
+
+      <div class="accordion-item reveal" role="listitem">
+        <button class="accordion-header" aria-expanded="false" id="faq1-btn" aria-controls="faq1-body">
+          What are the admission requirements for Bachelor programs?
+          <span class="accordion-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="accordion-body" id="faq1-body" role="region" aria-labelledby="faq1-btn">
+          Applicants must hold a French Baccalauréat (or international equivalent) with strong grades in mathematics and science. Admission is competitive and based on academic records, a motivational letter, and an entrance examination in mathematics and logic.
+        </div>
+      </div>
+
+      <div class="accordion-item reveal delay-1" role="listitem">
+        <button class="accordion-header" aria-expanded="false" id="faq2-btn" aria-controls="faq2-body">
+          Are English-taught programs available?
+          <span class="accordion-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="accordion-body" id="faq2-body" role="region" aria-labelledby="faq2-btn">
+          Yes. Several Master's-level programs are taught entirely in English, and all programs include mandatory English modules. International students are welcome, and EFREI offers dedicated French language support programs.
+        </div>
+      </div>
+
+      <div class="accordion-item reveal delay-2" role="listitem">
+        <button class="accordion-header" aria-expanded="false" id="faq3-btn" aria-controls="faq3-body">
+          Can I do an apprenticeship (alternance)?
+          <span class="accordion-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="accordion-body" id="faq3-body" role="region" aria-labelledby="faq3-btn">
+          Absolutely. EFREI strongly encourages the apprenticeship model (alternance), available from Year 3 onwards. This allows students to alternate between university study and professional work, gaining valuable real-world experience while being paid.
+        </div>
+      </div>
+
+      <div class="accordion-item reveal delay-3" role="listitem">
+        <button class="accordion-header" aria-expanded="false" id="faq4-btn" aria-controls="faq4-body">
+          What certifications can I earn alongside my degree?
+          <span class="accordion-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="accordion-body" id="faq4-body" role="region" aria-labelledby="faq4-btn">
+          EFREI has partnerships with major tech companies, enabling students to sit for AWS, Google Cloud, Microsoft Azure, Cisco CCNA, and cybersecurity certifications (CompTIA Security+, CEH) as part of their curriculum or electives.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer id="site-footer" aria-label="Site footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="site-logo" aria-label="EFREI home">
+          <div class="logo-mark" aria-hidden="true">E</div>
+          <div class="logo-text">
+            <span class="logo-title">EFREI Paris</span>
+            <span class="logo-sub">Computer Science Dept.</span>
+          </div>
+        </a>
+        <p>Forming engineers who solve real-world challenges through technology, innovation, and ethics.</p>
+      </div>
+      <nav class="footer-col" aria-label="Quick links footer">
+        <h5>Navigation</h5>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="faculty.html">Faculty</a></li>
+          <li><a href="student-life.html">Student Life</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-col" aria-label="Resources footer">
+        <h5>Resources</h5>
+        <ul>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="student-life.html">Events Calendar</a></li>
+          <li><a href="courses.html">Program Catalogue</a></li>
+          <li><a href="about.html">About the Project</a></li>
+        </ul>
+      </nav>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="mailto:info@efrei.fr">info@efrei.fr</a></li>
+          <li><a href="tel:+33145123456">+33 (0)1 45 12 34 56</a></li>
+          <li><address style="font-style:normal;color:var(--text-secondary);font-size:0.875rem;">30-32 Avenue de la République<br>94800 Villejuif, France</address></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 EFREI Paris — Computer Science Department. All rights reserved.</p>
+      <div class="footer-social" aria-label="Social media links">
+        <a href="#" class="social-icon" aria-label="LinkedIn">in</a>
+        <a href="#" class="social-icon" aria-label="Twitter/X">𝕏</a>
+        <a href="#" class="social-icon" aria-label="GitHub">⌥</a>
+        <a href="about.html" class="social-icon" aria-label="About the project">ℹ</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button id="back-to-top" aria-label="Scroll back to top">↑</button>
+
+<script src="../assets/js/nav.js"></script>
+<script src="../assets/js/animations.js"></script>
+<script src="../assets/js/forms.js"></script>
+
+</body>
+</html>

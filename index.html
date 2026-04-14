@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="EFREI Paris — Computer Science Department. Discover our programs, faculty, research, and student life at one of France's leading engineering schools.">
+  <meta name="keywords" content="EFREI, computer science, engineering, Paris, university, CS programs">
+  <meta name="author" content="Mathys CUEVAS--YIM, Erwan WONG">
+  <title>EFREI — Computer Science Department</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <style>
+    /* ---- HOME-SPECIFIC STYLES ---- */
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('assets/images/Campus.png');
+      background-size: cover;
+      background-position: center;
+      opacity: 1;
+      z-index: 0;
+    }
+
+    .hero-bg-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg,
+          rgba(255, 255, 255, 0.95) 0%,
+          rgba(255, 255, 255, 0.7) 40%,
+          rgba(255, 255, 255, 0.3) 100%);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: calc(var(--header-height) + 3rem) 0 3rem;
+      width: 100%;
+    }
+
+    .hero-content-inner {
+      max-width: 700px;
+    }
+
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      border-radius: var(--radius-full);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--color-primary-light);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-label-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--color-accent);
+      animation: pulseDot 2s ease infinite;
+    }
+
+    .hero-title {
+      margin-bottom: 0.5rem;
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8), 0 0 15px rgba(255, 255, 255, 0.5);
+    }
+
+    .hero-typed-line {
+      min-height: 1.3em;
+      color: var(--color-primary);
+      font-weight: 600;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin: 1.5rem 0 2rem;
+      max-width: 560px;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .hero-badge-row {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .hero-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.7);
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-full);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border: 1px solid var(--glass-border);
+    }
+
+    .hero-badge-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: var(--radius-sm);
+      background: #fff;
+      border: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    /* Stats section */
+    .stats-section {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--glass-border);
+      border-bottom: 1px solid var(--glass-border);
+      padding: var(--space-xl) 0;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-lg);
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: var(--space-lg);
+      border-radius: var(--radius-lg);
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      transition: all var(--transition-base);
+    }
+
+    .stat-item:hover {
+      border-color: rgba(99, 102, 241, 0.3);
+      background: rgba(99, 102, 241, 0.05);
+      transform: translateY(-4px);
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Carousel section */
+    .carousel-section {
+      padding: var(--space-3xl) 0;
+      background: var(--bg-primary);
+    }
+
+    .carousel-slide-content {
+      position: relative;
+      height: 480px;
+      overflow: hidden;
+      border-radius: var(--radius-xl);
+    }
+
+    .carousel-slide-content img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .carousel-slide-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 60%);
+      display: flex;
+      align-items: flex-end;
+      padding: var(--space-xl);
+    }
+
+    .carousel-slide-text h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .carousel-slide-text p {
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+
+    /* Quick Links */
+    .quick-links-section {
+      padding: var(--space-3xl) 0;
+      background: var(--bg-secondary);
+    }
+
+    .quick-links-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-lg);
+    }
+
+    .quick-link-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: var(--space-xl) var(--space-lg);
+      background: var(--surface);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      text-decoration: none;
+      transition: all var(--transition-base);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quick-link-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), transparent);
+      opacity: 0;
+      transition: opacity var(--transition-base);
+    }
+
+    .quick-link-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(99, 102, 241, 0.4);
+      box-shadow: var(--shadow-lg), var(--shadow-glow);
+    }
+
+    .quick-link-card:hover::before {
+      opacity: 1;
+    }
+
+    .quick-link-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: var(--space-md);
+    }
+
+    .quick-link-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
+      position: relative;
+    }
+
+    .quick-link-card p {
+      font-size: 0.875rem;
+      position: relative;
+      flex: 1;
+    }
+
+    .quick-link-arrow {
+      margin-top: var(--space-md);
+      color: var(--color-primary-light);
+      font-size: 1.2rem;
+      transition: transform var(--transition-base);
+      position: relative;
+    }
+
+    .quick-link-card:hover .quick-link-arrow {
+      transform: translateX(6px);
+    }
+
+    /* News / highlights */
+    .news-section {
+      padding: var(--space-3xl) 0;
+      background: var(--bg-primary);
+    }
+
+    .news-card {
+      background: var(--surface);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: all var(--transition-base);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .news-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg), var(--shadow-glow);
+      border-color: rgba(99, 102, 241, 0.3);
+    }
+
+    .news-card-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .news-card-body {
+      padding: var(--space-lg);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .news-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-sm);
+    }
+
+    .news-date {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .news-card-body h4 {
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+
+    .news-card-body p {
+      font-size: 0.875rem;
+      flex: 1;
+    }
+
+    .news-read-more {
+      margin-top: var(--space-md);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--color-primary-light);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: gap var(--transition-fast);
+    }
+
+    .news-card:hover .news-read-more {
+      gap: 0.65rem;
+    }
+
+    /* CTA banner */
+    .cta-banner {
+      padding: var(--space-3xl) 0;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(34, 211, 238, 0.1) 100%);
+      border-top: 1px solid rgba(99, 102, 241, 0.2);
+      border-bottom: 1px solid rgba(34, 211, 238, 0.15);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.12), transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-banner-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-banner h2 {
+      margin-bottom: var(--space-md);
+    }
+
+    .cta-banner p {
+      max-width: 500px;
+      margin: 0 auto var(--space-xl);
+    }
+
+    .cta-banner-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Scroll Progress -->
+  <div id="scroll-progress" role="progressbar" aria-label="Page scroll progress"></div>
+
+  <!-- ===== HEADER ===== -->
+  <header id="site-header">
+    <div class="container header-inner">
+
+      <a href="index.html" class="site-logo" aria-label="EFREI Computer Science Department Home">
+        <div class="logo-mark" aria-hidden="true">E</div>
+        <div class="logo-text">
+          <span class="logo-title">EFREI Paris</span>
+          <span class="logo-sub">Computer Science Dept.</span>
+        </div>
+      </a>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <ul>
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="pages/courses.html">Courses</a></li>
+          <li><a href="pages/faculty.html">Faculty</a></li>
+          <li><a href="pages/student-life.html">Student Life</a></li>
+          <li><a href="pages/contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false"
+        aria-controls="mobile-nav">
+        <span></span><span></span><span></span>
+      </button>
+
+    </div>
+  </header>
+
+  <!-- Mobile Nav -->
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    <ul>
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="pages/courses.html">Courses</a></li>
+      <li><a href="pages/faculty.html">Faculty</a></li>
+      <li><a href="pages/student-life.html">Student Life</a></li>
+      <li><a href="pages/contact.html">Contact</a></li>
+      <li><a href="pages/about.html">About the Project</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <main>
+    <section class="hero" aria-label="Hero section">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-bg-gradient" aria-hidden="true"></div>
+
+      <!-- Animated orbs -->
+      <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
+      <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
+      <div class="hero-orb hero-orb-3" aria-hidden="true"></div>
+
+      <!-- Floating shapes -->
+      <div class="float-shape float-shape-1" aria-hidden="true"></div>
+      <div class="float-shape float-shape-2" aria-hidden="true"></div>
+      <div class="float-shape float-shape-3" aria-hidden="true"></div>
+
+      <div class="container hero-content">
+        <div class="hero-content-inner">
+
+          <div class="hero-label hero-animate-1">
+            <span class="hero-label-dot" aria-hidden="true"></span>
+            EFREI Paris · Est. 1936
+          </div>
+
+          <h1 class="hero-title hero-animate-2">
+            Department of<br>
+            <span class="animated-gradient-text">Computer Science</span>
+          </h1>
+
+          <p class="hero-typed-line hero-animate-2" aria-live="polite">
+            Shaping tomorrow's engineers through
+            <span id="typing-target" class="typing-cursor" aria-hidden="true">Innovation.</span>
+          </p>
+
+          <p class="hero-desc hero-animate-3">
+            Welcome to EFREI's Computer Science Department — where cutting-edge research meets
+            world-class education. We prepare the next generation of tech leaders with rigorous
+            programs in AI, cybersecurity, software engineering, and more.
+          </p>
+
+          <div class="hero-actions hero-animate-4">
+            <a href="pages/courses.html" class="btn btn-primary">Explore Programs</a>
+            <a href="pages/contact.html" class="btn btn-outline">Apply Now →</a>
+          </div>
+
+          <div class="hero-badge-row hero-animate-5">
+            <div class="hero-badge">
+              <span class="hero-badge-icon" aria-hidden="true">🏆</span>
+              <span>Top-ranked Engineering School</span>
+            </div>
+            <div class="hero-badge">
+              <span class="hero-badge-icon" aria-hidden="true">🌍</span>
+              <span>International Network</span>
+            </div>
+            <div class="hero-badge">
+              <span class="hero-badge-icon" aria-hidden="true">🔬</span>
+              <span>Active Research Labs</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== STATS ===== -->
+    <section class="stats-section" aria-label="Department statistics">
+      <div class="container">
+        <div class="hero-stats">
+
+          <div class="stat-item reveal">
+            <span class="stat-number" data-target="3200" data-suffix="+" aria-label="3200 plus students">0</span>
+            <p class="stat-label">Students</p>
+          </div>
+
+          <div class="stat-item reveal delay-1">
+            <span class="stat-number" data-target="120" data-suffix="+" aria-label="120 plus faculty">0</span>
+            <p class="stat-label">Faculty Members</p>
+          </div>
+
+          <div class="stat-item reveal delay-2">
+            <span class="stat-number" data-target="40" data-suffix="+" aria-label="40 plus programs">0</span>
+            <p class="stat-label">Programs</p>
+          </div>
+
+          <div class="stat-item reveal delay-3">
+            <span class="stat-number" data-target="95" data-suffix="%" aria-label="95 percent employment rate">0</span>
+            <p class="stat-label">Employment Rate</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CAROUSEL ===== -->
+    <section class="carousel-section" aria-label="Campus gallery">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">Discover EFREI</span>
+          <h2 class="section-title">Life at the <span>CS Department</span></h2>
+          <p class="section-desc">From state-of-the-art labs to vibrant student life — experience EFREI like never
+            before.</p>
+        </div>
+
+        <div class="carousel-wrapper" role="region" aria-label="Campus image carousel" tabindex="0">
+          <div class="carousel-track">
+
+            <div class="carousel-slide" role="group" aria-label="Slide 1 of 3">
+              <div class="carousel-slide-content">
+                <img src="assets/images/Campus.png" alt="EFREI campus modern architecture" loading="lazy">
+                <div class="carousel-slide-overlay">
+                  <div class="carousel-slide-text">
+                    <h3>Our Campus</h3>
+                    <p>Cutting-edge infrastructure in the heart of Villejuif, Paris.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="carousel-slide" role="group" aria-label="Slide 2 of 3">
+              <div class="carousel-slide-content">
+                <img src="assets/images/cs_lab.png" alt="Modern CS laboratory with students coding" loading="lazy">
+                <div class="carousel-slide-overlay">
+                  <div class="carousel-slide-text">
+                    <h3>State-of-the-Art Labs</h3>
+                    <p>Fully equipped computing labs open 7 days a week for students.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="carousel-slide" role="group" aria-label="Slide 3 of 3">
+              <div class="carousel-slide-content">
+                <img src="assets/images/student_hackathon.png" alt="Students collaborating at a hackathon event"
+                  loading="lazy">
+                <div class="carousel-slide-overlay">
+                  <div class="carousel-slide-text">
+                    <h3>Innovation &amp; Events</h3>
+                    <p>Regular hackathons, seminars, and industry partnerships drive innovation.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="carousel-controls" aria-label="Carousel controls">
+          <button class="carousel-btn carousel-btn-prev" aria-label="Previous slide">&#8592;</button>
+          <div class="carousel-dots" role="tablist" aria-label="Carousel slide indicators"></div>
+          <button class="carousel-btn carousel-btn-next" aria-label="Next slide">&#8594;</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== QUICK LINKS ===== -->
+    <section class="quick-links-section" aria-label="Quick navigation">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">Navigate</span>
+          <h2 class="section-title">Everything You <span>Need</span></h2>
+          <p class="section-desc">Explore what EFREI's Computer Science Department has to offer.</p>
+        </div>
+
+        <div class="quick-links-grid">
+
+          <a href="pages/courses.html" class="quick-link-card tilt-card reveal">
+            <div class="quick-link-icon"
+              style="background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(99,102,241,0.05));"
+              aria-hidden="true">📚</div>
+            <h3>Courses &amp; Programs</h3>
+            <p>Bachelor's, Master's, and specialized tracks in CS, AI, cybersecurity and more.</p>
+            <span class="quick-link-arrow" aria-hidden="true">→</span>
+          </a>
+
+          <a href="pages/faculty.html" class="quick-link-card tilt-card reveal delay-1">
+            <div class="quick-link-icon"
+              style="background: linear-gradient(135deg, rgba(34,211,238,0.2), rgba(34,211,238,0.05));"
+              aria-hidden="true">👩‍🏫</div>
+            <h3>Faculty &amp; Research</h3>
+            <p>Meet our world-class professors and explore our active research groups.</p>
+            <span class="quick-link-arrow" aria-hidden="true">→</span>
+          </a>
+
+          <a href="pages/student-life.html" class="quick-link-card tilt-card reveal delay-2">
+            <div class="quick-link-icon"
+              style="background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(245,158,11,0.05));"
+              aria-hidden="true">🎓</div>
+            <h3>Student Life</h3>
+            <p>Clubs, events, hackathons, and a vibrant community to make your years unforgettable.</p>
+            <span class="quick-link-arrow" aria-hidden="true">→</span>
+          </a>
+
+          <a href="pages/contact.html" class="quick-link-card tilt-card reveal delay-3">
+            <div class="quick-link-icon"
+              style="background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(16,185,129,0.05));"
+              aria-hidden="true">✉️</div>
+            <h3>Contact Us</h3>
+            <p>Get in touch with the department, ask questions, or schedule a campus visit.</p>
+            <span class="quick-link-arrow" aria-hidden="true">→</span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== NEWS ===== -->
+    <section class="news-section" aria-label="Latest news and highlights">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">Latest</span>
+          <h2 class="section-title">News &amp; <span>Highlights</span></h2>
+          <p class="section-desc">Stay up to date with the latest from EFREI's CS department.</p>
+        </div>
+
+        <div class="grid-3">
+
+          <article class="news-card reveal">
+            <img src="assets/images/cs_lab.png" alt="Students working in AI research lab" class="news-card-img"
+              loading="lazy">
+            <div class="news-card-body">
+              <div class="news-meta">
+                <span class="tag tag-primary">Research</span>
+                <span class="news-date">April 8, 2026</span>
+              </div>
+              <h4>New AI Research Lab Opens at EFREI</h4>
+              <p>The department inaugurates a state-of-the-art Artificial Intelligence lab equipped with
+                high-performance GPU clusters.</p>
+              <a href="pages/faculty.html" class="news-read-more">Read more →</a>
+            </div>
+          </article>
+
+          <article class="news-card reveal delay-1">
+            <img src="assets/images/student_hackathon.png" alt="Students at the Spring Hackathon 2026"
+              class="news-card-img" loading="lazy">
+            <div class="news-card-body">
+              <div class="news-meta">
+                <span class="tag tag-accent">Event</span>
+                <span class="news-date">April 3, 2026</span>
+              </div>
+              <h4>Spring Hackathon 2026 — Registration Open</h4>
+              <p>48 hours of coding, creativity, and collaboration. Teams of up to 4 students compete for prizes worth
+                €10,000.</p>
+              <a href="pages/student-life.html" class="news-read-more">Read more →</a>
+            </div>
+          </article>
+
+          <article class="news-card reveal delay-2">
+            <img src="assets/images/campus_library.png" alt="EFREI digital library upgrade" class="news-card-img"
+              loading="lazy">
+            <div class="news-card-body">
+              <div class="news-meta">
+                <span class="tag tag-gold">Campus</span>
+                <span class="news-date">March 28, 2026</span>
+              </div>
+              <h4>Digital Library Expansion Complete</h4>
+              <p>EFREI's digital resource center has been upgraded with 50,000+ new e-books and access to premium
+                academic journals.</p>
+              <a href="pages/student-life.html" class="news-read-more">Read more →</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CTA BANNER ===== -->
+    <section class="cta-banner" aria-label="Call to action — Apply to EFREI">
+      <div class="container">
+        <div class="cta-banner-content reveal">
+          <span class="section-label">Join Us</span>
+          <h2 class="mt-md">Ready to Shape the <span class="gradient-text">Future of Tech?</span></h2>
+          <p class="mt-md">Applications for the 2026–2027 academic year are now open. Take the first step toward an
+            exceptional career in computer science.</p>
+          <div class="cta-banner-actions mt-xl">
+            <a href="pages/courses.html" class="btn btn-primary">View Programs</a>
+            <a href="pages/contact.html" class="btn btn-accent">Apply Now</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer id="site-footer" aria-label="Site footer">
+    <div class="container">
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+          <a href="index.html" class="site-logo" aria-label="EFREI CS Department home">
+            <div class="logo-mark" aria-hidden="true">E</div>
+            <div class="logo-text">
+              <span class="logo-title">EFREI Paris</span>
+              <span class="logo-sub">Computer Science Dept.</span>
+            </div>
+          </a>
+          <p>Forming engineers who solve real-world challenges through technology, innovation, and ethics.</p>
+        </div>
+
+        <nav class="footer-col" aria-label="Quick links footer navigation">
+          <h5>Navigation</h5>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="pages/courses.html">Courses</a></li>
+            <li><a href="pages/faculty.html">Faculty</a></li>
+            <li><a href="pages/student-life.html">Student Life</a></li>
+          </ul>
+        </nav>
+
+        <nav class="footer-col" aria-label="Resources footer navigation">
+          <h5>Resources</h5>
+          <ul>
+            <li><a href="pages/contact.html">Contact</a></li>
+            <li><a href="pages/student-life.html">Events Calendar</a></li>
+            <li><a href="pages/courses.html">Program Catalogue</a></li>
+            <li><a href="pages/about.html">About the Project</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer-col">
+          <h5>Contact</h5>
+          <ul>
+            <li><a href="mailto:info@efrei.fr">info@efrei.fr</a></li>
+            <li><a href="tel:+33145123456">+33 (0)1 45 12 34 56</a></li>
+            <li>
+              <address style="font-style:normal;color:var(--text-secondary);font-size:0.875rem;">30-32 Avenue de la
+                République<br>94800 Villejuif, France</address>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 EFREI Paris — Computer Science Department. All rights reserved.</p>
+        <div class="footer-social" aria-label="Social media links">
+          <a href="#" class="social-icon" aria-label="LinkedIn">in</a>
+          <a href="#" class="social-icon" aria-label="Twitter/X">𝕏</a>
+          <a href="#" class="social-icon" aria-label="GitHub">⌥</a>
+          <a href="pages/about.html" class="social-icon" aria-label="About the project">ℹ</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to top -->
+  <button id="back-to-top" aria-label="Scroll back to top">↑</button>
+
+  <!-- Scripts -->
+  <script src="assets/js/nav.js"></script>
+  <script src="assets/js/carousel.js"></script>
+  <script src="assets/js/animations.js"></script>
+  <script src="assets/js/forms.js"></script>
+
+</body>
+
+</html>

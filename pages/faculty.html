@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="EFREI CS Department — Meet our world-class faculty and discover our research groups, labs, and academic expertise.">
+  <meta name="keywords" content="EFREI faculty, professors, research, computer science, AI, cybersecurity experts">
+  <meta name="author" content="Mathys CUEVAS--YIM, Erwan WONG">
+  <title>Faculty &amp; Research — EFREI Computer Science</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/animations.css">
+  <link rel="stylesheet" href="../assets/css/responsive.css">
+  <style>
+    /* ---- FACULTY PAGE ---- */
+
+    .faculty-search-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .faculty-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-lg);
+    }
+
+    .faculty-card {
+      background: var(--surface);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      text-align: center;
+      transition: all var(--transition-base);
+    }
+
+    .faculty-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(37, 99, 235, 0.25);
+      box-shadow: var(--shadow-lg), var(--shadow-glow);
+    }
+
+    .faculty-photo-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .faculty-photo {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      object-position: top;
+      transition: transform var(--transition-slow);
+    }
+
+    .faculty-card:hover .faculty-photo {
+      transform: scale(1.05);
+    }
+
+    .faculty-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(255, 255, 255, 0.4) 0%, transparent 60%);
+    }
+
+    .faculty-body {
+      padding: var(--space-lg);
+    }
+
+    .faculty-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .faculty-role {
+      font-size: 0.8rem;
+      color: var(--color-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+      margin-bottom: var(--space-sm);
+    }
+
+    .faculty-bio {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: var(--space-md);
+    }
+
+    .faculty-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      justify-content: center;
+      margin-bottom: var(--space-md);
+    }
+
+    .faculty-contacts {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+
+    .faculty-contact-link {
+      font-size: 0.75rem;
+      padding: 0.3rem 0.85rem;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--glass-border);
+      color: var(--text-muted);
+      transition: all var(--transition-fast);
+    }
+
+    .faculty-contact-link:hover {
+      border-color: var(--color-primary-light);
+      color: var(--color-primary-light);
+      background: rgba(99, 102, 241, 0.08);
+    }
+
+    /* Research labs */
+    .labs-section {
+      background: var(--bg-secondary);
+    }
+
+    .lab-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      transition: all var(--transition-base);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lab-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      border-radius: var(--radius-full) 0 0 var(--radius-full);
+    }
+
+    .lab-card:nth-child(1)::before { background: var(--color-primary); }
+    .lab-card:nth-child(2)::before { background: var(--color-accent); }
+    .lab-card:nth-child(3)::before { background: var(--color-gold); }
+    .lab-card:nth-child(4)::before { background: #a855f7; }
+
+    .lab-card:hover {
+      border-color: rgba(99, 102, 241, 0.3);
+      transform: translateY(-4px);
+    }
+
+    .lab-icon {
+      font-size: 2rem;
+      margin-bottom: var(--space-md);
+    }
+
+    .lab-card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .lab-card p {
+      font-size: 0.875rem;
+    }
+
+    .lab-meta {
+      margin-top: var(--space-md);
+      display: flex;
+      gap: var(--space-lg);
+    }
+
+    .lab-meta-item {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .lab-meta-item strong {
+      display: block;
+      color: var(--text-primary);
+      font-size: 0.95rem;
+    }
+
+    /* Publications */
+    .pub-item {
+      padding: var(--space-lg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-md);
+      background: var(--glass);
+      transition: all var(--transition-fast);
+    }
+
+    .pub-item:hover {
+      border-color: rgba(99, 102, 241, 0.3);
+      background: rgba(99, 102, 241, 0.04);
+    }
+
+    .pub-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .pub-authors {
+      font-size: 0.8rem;
+      color: var(--color-primary-light);
+      margin-bottom: 0.25rem;
+    }
+
+    .pub-venue {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+<div id="scroll-progress" role="progressbar" aria-label="Page scroll progress"></div>
+
+<!-- ===== HEADER ===== -->
+<header id="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="site-logo" aria-label="EFREI CS Department Home">
+      <div class="logo-mark" aria-hidden="true">E</div>
+      <div class="logo-text">
+        <span class="logo-title">EFREI Paris</span>
+        <span class="logo-sub">Computer Science Dept.</span>
+      </div>
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="courses.html">Courses</a></li>
+        <li><a href="faculty.html" class="active">Faculty</a></li>
+        <li><a href="student-life.html">Student Life</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+  <ul>
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="courses.html">Courses</a></li>
+    <li><a href="faculty.html" class="active">Faculty</a></li>
+    <li><a href="student-life.html">Student Life</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="about.html">About the Project</a></li>
+  </ul>
+</nav>
+
+<!-- ===== PAGE HERO ===== -->
+<main>
+<section class="page-hero" aria-label="Faculty page hero">
+  <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
+  <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
+  <div class="container page-hero-content">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../index.html">Home</a>
+      <span aria-hidden="true">›</span>
+      <span aria-current="page">Faculty &amp; Research</span>
+    </nav>
+    <span class="section-label">Meet the Experts</span>
+    <h1 class="mt-md">Faculty &amp; <span class="gradient-text">Research</span></h1>
+    <p class="section-desc mt-md" style="margin-left:0; text-align:left;">
+      Our faculty comprises leading researchers and practitioners who bring real-world expertise and scientific rigor to every classroom.
+    </p>
+  </div>
+</section>
+
+<!-- ===== FACULTY SEARCH + GRID ===== -->
+<section class="section" aria-label="Faculty directory">
+  <div class="container">
+
+    <div class="faculty-search-row" role="search" aria-label="Search faculty members">
+      <div class="search-bar" style="width:100%;max-width:460px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="search" id="faculty-search" placeholder="Search by name, specialization…" aria-label="Search faculty">
+        <button id="faculty-search-clear" aria-label="Clear search" style="color:var(--text-muted);background:none;border:none;cursor:pointer;font-size:1.1rem;">&#x2715;</button>
+      </div>
+    </div>
+
+    <div class="faculty-grid" id="faculty-grid" aria-label="Faculty members grid">
+
+      <article class="faculty-card shimmer-card reveal">
+        <div class="faculty-photo-wrap">
+          <img src="../assets/images/faculty_1.png" alt="Professor Jean-Pierre Moreau, Head of Department" class="faculty-photo" loading="lazy">
+          <div class="faculty-overlay" aria-hidden="true"></div>
+        </div>
+        <div class="faculty-body">
+          <p class="faculty-name">Prof. Jean-Pierre Moreau</p>
+          <p class="faculty-role">Head of Department</p>
+          <p class="faculty-bio">20+ years in distributed systems and cloud computing. Former engineer at INRIA. Author of 80+ peer-reviewed papers.</p>
+          <div class="faculty-tags">
+            <span class="tag tag-primary">Distributed Systems</span>
+            <span class="tag tag-primary">Cloud</span>
+          </div>
+          <div class="faculty-contacts">
+            <a href="mailto:j.moreau@efrei.fr" class="faculty-contact-link" aria-label="Email Prof. Jean-Pierre Moreau">✉ Email</a>
+            <a href="#" class="faculty-contact-link" aria-label="View Prof. Moreau's profile">Profile</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="faculty-card shimmer-card reveal delay-1">
+        <div class="faculty-photo-wrap">
+          <img src="../assets/images/faculty_2.png" alt="Dr. Sophie Lefèvre, Associate Professor in AI" class="faculty-photo" loading="lazy">
+          <div class="faculty-overlay" aria-hidden="true"></div>
+        </div>
+        <div class="faculty-body">
+          <p class="faculty-name">Dr. Sophie Lefèvre</p>
+          <p class="faculty-role">Associate Professor — AI &amp; NLP</p>
+          <p class="faculty-bio">PhD from École Polytechnique. Specializes in natural language processing and explainable AI. ERC grant recipient 2024.</p>
+          <div class="faculty-tags">
+            <span class="tag tag-accent">NLP</span>
+            <span class="tag tag-accent">XAI</span>
+          </div>
+          <div class="faculty-contacts">
+            <a href="mailto:s.lefevre@efrei.fr" class="faculty-contact-link" aria-label="Email Dr. Sophie Lefèvre">✉ Email</a>
+            <a href="#" class="faculty-contact-link" aria-label="View Dr. Lefèvre's profile">Profile</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="faculty-card shimmer-card reveal delay-2">
+        <div class="faculty-photo-wrap">
+          <img src="../assets/images/faculty_3.png" alt="Prof. Antoine Dubois, Professor of Machine Learning" class="faculty-photo" loading="lazy">
+          <div class="faculty-overlay" aria-hidden="true"></div>
+        </div>
+        <div class="faculty-body">
+          <p class="faculty-name">Prof. Antoine Dubois</p>
+          <p class="faculty-role">Professor — Machine Learning</p>
+          <p class="faculty-bio">Pioneer in deep reinforcement learning. Co-founder of AI startup recognized by MIT Technology Review. 3 international patents.</p>
+          <div class="faculty-tags">
+            <span class="tag tag-primary">Deep Learning</span>
+            <span class="tag tag-primary">RL</span>
+          </div>
+          <div class="faculty-contacts">
+            <a href="mailto:a.dubois@efrei.fr" class="faculty-contact-link" aria-label="Email Prof. Antoine Dubois">✉ Email</a>
+            <a href="#" class="faculty-contact-link" aria-label="View Prof. Dubois's profile">Profile</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="faculty-card shimmer-card reveal">
+        <div class="faculty-photo-wrap">
+          <img src="../assets/images/faculty_4.png" alt="Dr. Isabelle Chen, Cybersecurity Expert" class="faculty-photo" loading="lazy">
+          <div class="faculty-overlay" aria-hidden="true"></div>
+        </div>
+        <div class="faculty-body">
+          <p class="faculty-name">Dr. Isabelle Chen</p>
+          <p class="faculty-role">Associate Professor — Cybersecurity</p>
+          <p class="faculty-bio">Former ANSSI cybersecurity analyst. Expert in network forensics, malware analysis, and critical infrastructure protection.</p>
+          <div class="faculty-tags">
+            <span class="tag" style="background:rgba(239,68,68,0.15);color:#f87171;border-color:rgba(239,68,68,0.3);">Forensics</span>
+            <span class="tag" style="background:rgba(239,68,68,0.15);color:#f87171;border-color:rgba(239,68,68,0.3);">Pentesting</span>
+          </div>
+          <div class="faculty-contacts">
+            <a href="mailto:i.chen@efrei.fr" class="faculty-contact-link" aria-label="Email Dr. Isabelle Chen">✉ Email</a>
+            <a href="#" class="faculty-contact-link" aria-label="View Dr. Chen's profile">Profile</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="faculty-card shimmer-card reveal delay-1">
+        <div class="faculty-photo-wrap">
+          <img src="../assets/images/faculty_1.png" alt="Prof. Marc Tissier, Networks & Telecommunications" class="faculty-photo" loading="lazy" style="filter:hue-rotate(30deg);">
+          <div class="faculty-overlay" aria-hidden="true"></div>
+        </div>
+        <div class="faculty-body">
+          <p class="faculty-name">Prof. Marc Tissier</p>
+          <p class="faculty-role">Professor — Networks &amp; Telecom</p>
+          <p class="faculty-bio">Expert in 5G/6G protocols, SDN architectures, and wireless mesh networks. IEEE Senior Member. 12 years at Orange Labs.</p>
+          <div class="faculty-tags">
+            <span class="tag tag-gold">5G/6G</span>
+            <span class="tag tag-gold">SDN</span>
+          </div>
+          <div class="faculty-contacts">
+            <a href="mailto:m.tissier@efrei.fr" class="faculty-contact-link" aria-label="Email Prof. Marc Tissier">✉ Email</a>
+            <a href="#" class="faculty-contact-link" aria-label="View Prof. Tissier's profile">Profile</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="faculty-card shimmer-card reveal delay-2">
+        <div class="faculty-photo-wrap">
+          <img src="../assets/images/faculty_2.png" alt="Dr. Nadia Karim, Software Engineering" class="faculty-photo" loading="lazy" style="filter:hue-rotate(60deg);">
+          <div class="faculty-overlay" aria-hidden="true"></div>
+        </div>
+        <div class="faculty-body">
+          <p class="faculty-name">Dr. Nadia Karim</p>
+          <p class="faculty-role">Lecturer — Software Engineering</p>
+          <p class="faculty-bio">Specialist in agile methodologies, formal verification, and open-source software engineering. PhD from Paris-Saclay University.</p>
+          <div class="faculty-tags">
+            <span class="tag" style="background:rgba(16,185,129,0.15);color:#34d399;border-color:rgba(16,185,129,0.3);">Agile</span>
+            <span class="tag" style="background:rgba(16,185,129,0.15);color:#34d399;border-color:rgba(16,185,129,0.3);">Open Source</span>
+          </div>
+          <div class="faculty-contacts">
+            <a href="mailto:n.karim@efrei.fr" class="faculty-contact-link" aria-label="Email Dr. Nadia Karim">✉ Email</a>
+            <a href="#" class="faculty-contact-link" aria-label="View Dr. Karim's profile">Profile</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="no-results" id="faculty-no-results" role="status" aria-live="polite">
+      <div class="no-results-icon" aria-hidden="true">👤</div>
+      <p>No faculty members found matching your search.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== RESEARCH LABS ===== -->
+<section class="labs-section section" aria-label="Research laboratories">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">Research</span>
+      <h2 class="section-title">Our Research <span>Labs</span></h2>
+      <p class="section-desc">Cutting-edge research groups tackling tomorrow's most important technology challenges.</p>
+    </div>
+
+    <div class="grid-2">
+
+      <div class="lab-card reveal">
+        <div class="lab-icon" aria-hidden="true">🧠</div>
+        <h3>LAIR — Lab for Artificial Intelligence Research</h3>
+        <p>Focuses on deep learning, neuro-symbolic AI, reinforcement learning, and ethical AI. Active collaborations with INRIA, CNRS, and leading tech companies.</p>
+        <div class="lab-meta">
+          <div class="lab-meta-item"><strong>24</strong> Researchers</div>
+          <div class="lab-meta-item"><strong>6</strong> PhD Students</div>
+          <div class="lab-meta-item"><strong>2024</strong> Founded</div>
+        </div>
+      </div>
+
+      <div class="lab-card reveal delay-1">
+        <div class="lab-icon" aria-hidden="true">🛡️</div>
+        <h3>CySec — Cybersecurity Research Center</h3>
+        <p>Research in threat intelligence, zero-day exploit analysis, privacy-preserving computing, and post-quantum cryptography. Partners with ANSSI and NATO CCDCOE.</p>
+        <div class="lab-meta">
+          <div class="lab-meta-item"><strong>18</strong> Researchers</div>
+          <div class="lab-meta-item"><strong>4</strong> PhD Students</div>
+          <div class="lab-meta-item"><strong>2021</strong> Founded</div>
+        </div>
+      </div>
+
+      <div class="lab-card reveal">
+        <div class="lab-icon" aria-hidden="true">☁️</div>
+        <h3>CloudSys — Distributed &amp; Cloud Systems Lab</h3>
+        <p>Investigates serverless architectures, edge computing, fault-tolerant distributed systems, and green computing for sustainable cloud platforms.</p>
+        <div class="lab-meta">
+          <div class="lab-meta-item"><strong>15</strong> Researchers</div>
+          <div class="lab-meta-item"><strong>3</strong> PhD Students</div>
+          <div class="lab-meta-item"><strong>2019</strong> Founded</div>
+        </div>
+      </div>
+
+      <div class="lab-card reveal delay-1">
+        <div class="lab-icon" aria-hidden="true">📊</div>
+        <h3>DataViz — Data Science &amp; Visualization Lab</h3>
+        <p>Specializes in big data analytics, explainable visualizations, knowledge graphs, and real-time data processing for health, finance, and social applications.</p>
+        <div class="lab-meta">
+          <div class="lab-meta-item"><strong>12</strong> Researchers</div>
+          <div class="lab-meta-item"><strong>5</strong> PhD Students</div>
+          <div class="lab-meta-item"><strong>2022</strong> Founded</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== RECENT PUBLICATIONS ===== -->
+<section class="section" style="background:var(--bg-primary);" aria-label="Recent publications">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">Publications</span>
+      <h2 class="section-title">Recent <span>Research</span></h2>
+      <p class="section-desc">Selected publications from our faculty — advancing the field globally.</p>
+    </div>
+
+    <div style="max-width:800px;margin:0 auto;">
+
+      <div class="pub-item reveal">
+        <p class="pub-title">Federated Learning with Differential Privacy in Heterogeneous Edge Networks</p>
+        <p class="pub-authors">Lefèvre S., Dubois A., Moreau J-P.</p>
+        <p class="pub-venue">Nature Machine Intelligence, Vol. 8, 2026 · DOI: 10.1038/s42256-026-00312-x</p>
+      </div>
+
+      <div class="pub-item reveal delay-1">
+        <p class="pub-title">Adversarial Robustness of Large Language Models in Security Contexts</p>
+        <p class="pub-authors">Chen I., Lefèvre S., Karim N.</p>
+        <p class="pub-venue">IEEE Symposium on Security &amp; Privacy (S&amp;P 2026), San Francisco</p>
+      </div>
+
+      <div class="pub-item reveal delay-2">
+        <p class="pub-title">QoS-Aware Resource Scheduling in 6G Heterogeneous Networks Using DRL</p>
+        <p class="pub-authors">Tissier M., Moreau J-P.</p>
+        <p class="pub-venue">IEEE Transactions on Wireless Communications, 2025</p>
+      </div>
+
+      <div class="pub-item reveal">
+        <p class="pub-title">Formal Verification of Microservice Choreographies via Model Checking</p>
+        <p class="pub-authors">Karim N., Moreau J-P.</p>
+        <p class="pub-venue">ICSE 2025 — International Conference on Software Engineering, Ottawa</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer id="site-footer" aria-label="Site footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="site-logo" aria-label="EFREI home">
+          <div class="logo-mark" aria-hidden="true">E</div>
+          <div class="logo-text">
+            <span class="logo-title">EFREI Paris</span>
+            <span class="logo-sub">Computer Science Dept.</span>
+          </div>
+        </a>
+        <p>Forming engineers who solve real-world challenges through technology, innovation, and ethics.</p>
+      </div>
+      <nav class="footer-col" aria-label="Quick links footer">
+        <h5>Navigation</h5>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="faculty.html">Faculty</a></li>
+          <li><a href="student-life.html">Student Life</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-col" aria-label="Resources footer">
+        <h5>Resources</h5>
+        <ul>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="student-life.html">Events Calendar</a></li>
+          <li><a href="courses.html">Program Catalogue</a></li>
+          <li><a href="about.html">About the Project</a></li>
+        </ul>
+      </nav>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="mailto:info@efrei.fr">info@efrei.fr</a></li>
+          <li><a href="tel:+33145123456">+33 (0)1 45 12 34 56</a></li>
+          <li><address style="font-style:normal;color:var(--text-secondary);font-size:0.875rem;">30-32 Avenue de la République<br>94800 Villejuif, France</address></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 EFREI Paris — Computer Science Department. All rights reserved.</p>
+      <div class="footer-social" aria-label="Social media links">
+        <a href="#" class="social-icon" aria-label="LinkedIn">in</a>
+        <a href="#" class="social-icon" aria-label="Twitter/X">𝕏</a>
+        <a href="#" class="social-icon" aria-label="GitHub">⌥</a>
+        <a href="about.html" class="social-icon" aria-label="About the project">ℹ</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button id="back-to-top" aria-label="Scroll back to top">↑</button>
+
+<script src="../assets/js/nav.js"></script>
+<script src="../assets/js/animations.js"></script>
+<script src="../assets/js/forms.js"></script>
+
+</body>
+</html>

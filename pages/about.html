@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="About this project — EFREI CS Department website built by Mathys CUEVAS--YIM and Erwan WONG for the Web Development module.">
+  <meta name="keywords" content="EFREI project, about, team, web development, HTML CSS JavaScript">
+  <meta name="author" content="Mathys CUEVAS--YIM, Erwan WONG">
+  <title>About the Project — EFREI Computer Science</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/animations.css">
+  <link rel="stylesheet" href="../assets/css/responsive.css">
+  <style>
+    /* ---- ABOUT PAGE ---- */
+
+    .about-hero-layout {
+      display: flex;
+      align-items: center;
+      gap: var(--space-xl);
+    }
+
+    .about-hero-text {
+      flex: 1;
+    }
+
+    .about-hero-visual {
+      flex-shrink: 0;
+      width: 300px;
+      height: 300px;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(14, 165, 233, 0.05));
+      border: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-hero-visual::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 30%, rgba(37, 99, 235, 0.15), transparent 60%);
+    }
+
+    /* Team member cards */
+    .about-team-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-xl);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .member-card {
+      background: var(--surface);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl);
+      position: relative;
+      overflow: hidden;
+      transition: all var(--transition-base);
+    }
+
+    .member-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+    }
+
+    .member-card:nth-child(1)::before {
+      background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+    }
+
+    .member-card:nth-child(2)::before {
+      background: linear-gradient(90deg, var(--color-accent), var(--color-gold));
+    }
+
+    .member-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg), var(--shadow-glow);
+      border-color: rgba(37, 99, 235, 0.25);
+    }
+
+    .member-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-bottom: var(--space-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: 800;
+      font-family: var(--font-heading);
+      color: white;
+    }
+
+    .member-card:nth-child(1) .member-avatar {
+      background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.25);
+    }
+
+    .member-card:nth-child(2) .member-avatar {
+      background: linear-gradient(135deg, var(--color-accent), #0891b2);
+      box-shadow: 0 4px 15px rgba(14, 165, 233, 0.2);
+    }
+
+    .member-name {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+    }
+
+    .member-role {
+      font-size: 0.8rem;
+      color: var(--color-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+      margin-bottom: var(--space-md);
+    }
+
+    .member-desc {
+      font-size: 0.875rem;
+      line-height: 1.7;
+      margin-bottom: var(--space-lg);
+    }
+
+    .member-contributions {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+    }
+
+    .member-contributions h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: var(--space-sm);
+    }
+
+    .contribution-list {
+      list-style: none;
+    }
+
+    .contribution-list li {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      padding: 0.25rem 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .contribution-list li::before {
+      content: '✓';
+      color: var(--color-success);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* Tech stack */
+    .tech-section {
+      background: var(--bg-secondary);
+    }
+
+    .tech-stack-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-lg);
+    }
+
+    .tech-item {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      text-align: center;
+      transition: all var(--transition-base);
+    }
+
+    .tech-item:hover {
+      border-color: rgba(99,102,241,0.3);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .tech-icon {
+      font-size: 2.5rem;
+      margin-bottom: var(--space-md);
+    }
+
+    .tech-item h4 {
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .tech-item p {
+      font-size: 0.8rem;
+    }
+
+    /* Project context */
+    .context-section {
+      background: var(--bg-primary);
+    }
+
+    .context-card {
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(14, 165, 233, 0.03));
+      border: 1px solid rgba(37, 99, 235, 0.15);
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl) var(--space-2xl);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .context-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(99,102,241,0.1), transparent 70%);
+      pointer-events: none;
+    }
+
+    .context-card-content {
+      position: relative;
+    }
+
+    .context-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: var(--space-md);
+    }
+
+    .context-card p {
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 0.95rem;
+    }
+
+    .project-meta-row {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-xl);
+      margin-top: var(--space-xl);
+      flex-wrap: wrap;
+    }
+
+    .project-meta-item {
+      text-align: center;
+    }
+
+    .project-meta-value {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .project-meta-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 0.25rem;
+    }
+
+    /* Disclaimer / integrity */
+    .integrity-note {
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+      border-left: 4px solid var(--color-gold);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      margin-top: var(--space-xl);
+    }
+
+    .integrity-note p {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .integrity-note strong {
+      color: var(--color-gold);
+    }
+  </style>
+</head>
+<body>
+
+<div id="scroll-progress" role="progressbar" aria-label="Page scroll progress"></div>
+
+<!-- ===== HEADER ===== -->
+<header id="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="site-logo" aria-label="EFREI CS Department Home">
+      <div class="logo-mark" aria-hidden="true">E</div>
+      <div class="logo-text">
+        <span class="logo-title">EFREI Paris</span>
+        <span class="logo-sub">Computer Science Dept.</span>
+      </div>
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="courses.html">Courses</a></li>
+        <li><a href="faculty.html">Faculty</a></li>
+        <li><a href="student-life.html">Student Life</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+  <ul>
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="courses.html">Courses</a></li>
+    <li><a href="faculty.html">Faculty</a></li>
+    <li><a href="student-life.html">Student Life</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="about.html" class="active">About the Project</a></li>
+  </ul>
+</nav>
+
+<!-- ===== PAGE HERO ===== -->
+<main>
+<section class="page-hero" aria-label="About page hero">
+  <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
+  <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
+  <div class="container page-hero-content">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../index.html">Home</a>
+      <span aria-hidden="true">›</span>
+      <span aria-current="page">About the Project</span>
+    </nav>
+    <div class="about-hero-layout">
+      <div class="about-hero-text">
+        <span class="section-label">Academic Project</span>
+        <h1 class="mt-md">About <span class="gradient-text">This Project</span></h1>
+        <p class="section-desc mt-md" style="margin-left:0; text-align:left; max-width: 540px;">
+          This website is an academic project created for the Web Development module at EFREI Paris.
+          It showcases the Computer Science Department and was built entirely with HTML5, CSS3, and
+          vanilla JavaScript — no frameworks or external libraries.
+        </p>
+      </div>
+      <div class="about-hero-visual" aria-hidden="true">
+        <span style="position:relative;z-index:1;">🎓</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TEAM MEMBERS ===== -->
+<section class="section" style="background:var(--bg-primary);" aria-label="Project team members">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">The Team</span>
+      <h2 class="section-title">Meet the <span>Developers</span></h2>
+      <p class="section-desc">This project was designed and built by two students from EFREI's Computer Science Department.</p>
+    </div>
+
+    <div class="about-team-grid">
+
+      <!-- Member 1 -->
+      <article class="member-card reveal">
+        <div class="member-avatar" aria-hidden="true">MC</div>
+        <p class="member-name">Mathys CUEVAS--YIM</p>
+        <p class="member-role">Lead Developer &amp; UI/UX Designer</p>
+        <p class="member-desc">
+          Responsible for the overall visual design, responsive layout system, and JavaScript interactivity.
+          Designed the dark glassmorphism aesthetic, animation system, and built the home page, student life,
+          and about sections. Also architected the shared CSS design token system and coordinated the project structure.
+        </p>
+        <div class="member-contributions">
+          <h4>Key Contributions</h4>
+          <ul class="contribution-list">
+            <li>Visual design system &amp; color palette</li>
+            <li>index.html (Home page) with hero, carousel, stats</li>
+            <li>student-life.html with gallery &amp; events calendar</li>
+            <li>about.html (this page)</li>
+            <li>animations.css &amp; carousel.js</li>
+            <li>Responsive design &amp; media queries</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Member 2 -->
+      <article class="member-card reveal delay-1">
+        <div class="member-avatar" aria-hidden="true">EW</div>
+        <p class="member-name">Erwan WONG</p>
+        <p class="member-role">Content Strategist &amp; Frontend Developer</p>
+        <p class="member-desc">
+          Responsible for content architecture, page structure, and interactive features including form
+          validation, course filtering, and faculty search. Built the courses, faculty, and contact pages,
+          and implemented the JavaScript form and search logic across the site.
+        </p>
+        <div class="member-contributions">
+          <h4>Key Contributions</h4>
+          <ul class="contribution-list">
+            <li>courses.html with filter tabs &amp; schedule table</li>
+            <li>faculty.html with live search &amp; research labs</li>
+            <li>contact.html with validated form &amp; office hours</li>
+            <li>forms.js (accordion, filter, search, validation)</li>
+            <li>nav.js (navigation, progress bar, back-to-top)</li>
+            <li>Content research and copywriting</li>
+          </ul>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== TECH STACK ===== -->
+<section class="tech-section section" aria-label="Technologies used">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">Technology</span>
+      <h2 class="section-title">Built With <span>Pure Web Standards</span></h2>
+      <p class="section-desc">No frameworks, no libraries. Just HTML5, CSS3, and vanilla JavaScript — as required.</p>
+    </div>
+
+    <div class="tech-stack-grid">
+
+      <div class="tech-item reveal">
+        <div class="tech-icon" aria-hidden="true">🌐</div>
+        <h4>HTML5</h4>
+        <p>Semantic markup with proper heading hierarchy, ARIA attributes, and W3C-valid structure on every page.</p>
+      </div>
+
+      <div class="tech-item reveal delay-1">
+        <div class="tech-icon" aria-hidden="true">🎨</div>
+        <h4>CSS3</h4>
+        <p>Custom design system with CSS variables, Grid, Flexbox, animations, keyframes, and responsive media queries.</p>
+      </div>
+
+      <div class="tech-item reveal delay-2">
+        <div class="tech-icon" aria-hidden="true">⚡</div>
+        <h4>Vanilla JavaScript</h4>
+        <p>Pure ES6+ JS — no jQuery, no frameworks. IntersectionObserver, DOM manipulation, and event handling.</p>
+      </div>
+
+      <div class="tech-item reveal">
+        <div class="tech-icon" aria-hidden="true">📱</div>
+        <h4>Responsive Design</h4>
+        <p>Mobile-first approach with viewport meta, fluid typography, and breakpoints at 640px and 1024px.</p>
+      </div>
+
+      <div class="tech-item reveal delay-1">
+        <div class="tech-icon" aria-hidden="true">♿</div>
+        <h4>Accessibility</h4>
+        <p>ARIA roles and labels, keyboard navigation, focus management, skip links, and screen reader support.</p>
+      </div>
+
+      <div class="tech-item reveal delay-2">
+        <div class="tech-icon" aria-hidden="true">🔠</div>
+        <h4>Google Fonts</h4>
+        <p>Inter for body text and Sora for headings — loaded externally for premium typography without a font library.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROJECT CONTEXT ===== -->
+<section class="context-section section" aria-label="Project context and details">
+  <div class="container">
+
+    <div class="context-card reveal">
+      <div class="context-card-content">
+        <span class="section-label" style="display:inline-block;">Project Details</span>
+        <h3 class="mt-md">EFREI Web Development Module — Academic Year 2025–2026</h3>
+        <p>
+          This website was created as the final project deliverable for the Web Technologies module at EFREI Paris.
+          The objective was to design and build a multi-page showcase website for the Computer Science Department,
+          demonstrating mastery of HTML5, CSS3, and JavaScript — including form handling, dynamic interactions,
+          responsive design, and table manipulation.
+        </p>
+
+        <div class="project-meta-row">
+          <div class="project-meta-item">
+            <span class="project-meta-value">6</span>
+            <span class="project-meta-label">HTML pages</span>
+          </div>
+          <div class="project-meta-item">
+            <span class="project-meta-value">3</span>
+            <span class="project-meta-label">CSS files</span>
+          </div>
+          <div class="project-meta-item">
+            <span class="project-meta-value">4</span>
+            <span class="project-meta-label">JS modules</span>
+          </div>
+          <div class="project-meta-item">
+            <span class="project-meta-value">0</span>
+            <span class="project-meta-label">External libraries</span>
+          </div>
+          <div class="project-meta-item">
+            <span class="project-meta-value">2</span>
+            <span class="project-meta-label">Team members</span>
+          </div>
+        </div>
+
+        <div class="integrity-note mt-xl">
+          <p>
+            <strong>Academic Integrity:</strong> All code, content, and design work presented in this project
+            was produced entirely by Mathys CUEVAS--YIM and Erwan WONG. No external frameworks, templates,
+            or plagiarized content were used. All images were generated for this project. This work complies
+            with EFREI's academic integrity policy.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature timeline -->
+    <div class="section-header reveal mt-xl">
+      <span class="section-label">Development Timeline</span>
+      <h2 class="section-title">How We <span>Built It</span></h2>
+    </div>
+
+    <div class="timeline reveal" style="max-width:600px;margin:0 auto;" role="list">
+
+      <div class="timeline-item" role="listitem">
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <p class="timeline-year">Week 1</p>
+        <p class="timeline-title">Planning &amp; Design</p>
+        <p class="timeline-desc">Defined site architecture (6 pages, 2-level directory), chose design aesthetic, set up CSS design token system, and created wireframes.</p>
+      </div>
+
+      <div class="timeline-item" role="listitem">
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <p class="timeline-year">Week 2</p>
+        <p class="timeline-title">CSS Foundation &amp; JavaScript Core</p>
+        <p class="timeline-desc">Built the complete stylesheet (style.css, animations.css, responsive.css) and the four JavaScript modules including navigation, carousel, animations, and forms.</p>
+      </div>
+
+      <div class="timeline-item" role="listitem">
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <p class="timeline-year">Week 3</p>
+        <p class="timeline-title">HTML Page Development</p>
+        <p class="timeline-desc">Built all 6 HTML pages: Home, Courses, Faculty, Student Life, Contact, and About. Implemented tables, forms, and dynamic JS features on each page.</p>
+      </div>
+
+      <div class="timeline-item" role="listitem">
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <p class="timeline-year">Week 4</p>
+        <p class="timeline-title">Polish &amp; Validation</p>
+        <p class="timeline-desc">Refined animations, fixed responsiveness issues, ran W3C validation on every page, cross-browser tested, and polished accessibility features.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer id="site-footer" aria-label="Site footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="site-logo" aria-label="EFREI home">
+          <div class="logo-mark" aria-hidden="true">E</div>
+          <div class="logo-text">
+            <span class="logo-title">EFREI Paris</span>
+            <span class="logo-sub">Computer Science Dept.</span>
+          </div>
+        </a>
+        <p>Forming engineers who solve real-world challenges through technology, innovation, and ethics.</p>
+      </div>
+      <nav class="footer-col" aria-label="Quick links footer">
+        <h5>Navigation</h5>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="faculty.html">Faculty</a></li>
+          <li><a href="student-life.html">Student Life</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-col" aria-label="Resources footer">
+        <h5>Resources</h5>
+        <ul>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="student-life.html">Events Calendar</a></li>
+          <li><a href="courses.html">Program Catalogue</a></li>
+          <li><a href="about.html">About the Project</a></li>
+        </ul>
+      </nav>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="mailto:info@efrei.fr">info@efrei.fr</a></li>
+          <li><a href="tel:+33145123456">+33 (0)1 45 12 34 56</a></li>
+          <li><address style="font-style:normal;color:var(--text-secondary);font-size:0.875rem;">30-32 Avenue de la République<br>94800 Villejuif, France</address></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 EFREI Paris — Computer Science Department. Project by Mathys CUEVAS--YIM &amp; Erwan WONG.</p>
+      <div class="footer-social" aria-label="Social media links">
+        <a href="#" class="social-icon" aria-label="LinkedIn">in</a>
+        <a href="#" class="social-icon" aria-label="Twitter/X">𝕏</a>
+        <a href="#" class="social-icon" aria-label="GitHub">⌥</a>
+        <a href="about.html" class="social-icon" aria-label="About the project">ℹ</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button id="back-to-top" aria-label="Scroll back to top">↑</button>
+
+<script src="../assets/js/nav.js"></script>
+<script src="../assets/js/animations.js"></script>
+<script src="../assets/js/forms.js"></script>
+
+</body>
+</html>

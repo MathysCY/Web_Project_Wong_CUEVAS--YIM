@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contact EFREI's Computer Science Department — Send us a message, find our location, view office hours, or browse our FAQ.">
+  <meta name="keywords" content="EFREI contact, computer science department, get in touch, apply, campus visit">
+  <meta name="author" content="Mathys CUEVAS--YIM, Erwan WONG">
+  <title>Contact &amp; About Us — EFREI Computer Science</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/animations.css">
+  <link rel="stylesheet" href="../assets/css/responsive.css">
+  <style>
+    /* ---- CONTACT PAGE ---- */
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    /* Form card */
+    .contact-form-card {
+      background: var(--surface);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl);
+    }
+
+    .contact-form-card h2 {
+      font-size: 1.6rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .contact-form-card h2 span {
+      background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+    }
+
+    .form-success {
+      display: none;
+      align-items: center;
+      gap: var(--space-md);
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: var(--radius-md);
+      padding: var(--space-md) var(--space-lg);
+      margin-top: var(--space-md);
+    }
+
+    .form-success-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .form-success p {
+      font-size: 0.9rem;
+      color: #34d399;
+    }
+
+    /* Info panel */
+    .contact-info-panel {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .info-card {
+      background: var(--surface);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      transition: all var(--transition-base);
+    }
+
+    .info-card:hover {
+      border-color: rgba(37, 99, 235, 0.25);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .info-card-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-md);
+    }
+
+    .info-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .info-card h3 {
+      font-size: 0.95rem;
+    }
+
+    .info-card p, .info-card a {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .info-card a:hover {
+      color: var(--color-primary);
+    }
+
+    /* Office hours table */
+    .hours-section {
+      background: var(--bg-secondary);
+    }
+
+    /* Map placeholder */
+    .map-placeholder {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      height: 260px;
+      position: relative;
+      background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
+      border: 1px solid var(--glass-border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 3rem;
+    }
+
+    .map-placeholder p {
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+    }
+
+    /* FAQ */
+    .faq-section {
+      background: var(--bg-primary);
+    }
+  </style>
+</head>
+<body>
+
+<div id="scroll-progress" role="progressbar" aria-label="Page scroll progress"></div>
+
+<!-- ===== HEADER ===== -->
+<header id="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="site-logo" aria-label="EFREI CS Department Home">
+      <div class="logo-mark" aria-hidden="true">E</div>
+      <div class="logo-text">
+        <span class="logo-title">EFREI Paris</span>
+        <span class="logo-sub">Computer Science Dept.</span>
+      </div>
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="courses.html">Courses</a></li>
+        <li><a href="faculty.html">Faculty</a></li>
+        <li><a href="student-life.html">Student Life</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+  <ul>
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="courses.html">Courses</a></li>
+    <li><a href="faculty.html">Faculty</a></li>
+    <li><a href="student-life.html">Student Life</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+    <li><a href="about.html">About the Project</a></li>
+  </ul>
+</nav>
+
+<!-- ===== PAGE HERO ===== -->
+<main>
+<section class="page-hero" aria-label="Contact page hero">
+  <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
+  <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
+  <div class="container page-hero-content">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../index.html">Home</a>
+      <span aria-hidden="true">›</span>
+      <span aria-current="page">Contact</span>
+    </nav>
+    <span class="section-label">Get in Touch</span>
+    <h1 class="mt-md">Contact <span class="gradient-text">Us</span></h1>
+    <p class="section-desc mt-md" style="margin-left:0; text-align:left;">
+      Whether you have questions about admissions, programs, or want to schedule a visit — we'd love to hear from you.
+    </p>
+  </div>
+</section>
+
+<!-- ===== CONTACT FORM + INFO ===== -->
+<section class="section" style="background:var(--bg-primary);" aria-label="Contact form and information">
+  <div class="container">
+    <div class="contact-layout">
+
+      <!-- Form -->
+      <div class="contact-form-card reveal">
+        <h2>Send Us a <span>Message</span></h2>
+        <p style="font-size:0.875rem;margin-bottom:var(--space-xl);">We typically respond within 24–48 business hours.</p>
+
+        <form id="contact-form" novalidate aria-label="Contact form">
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="contact-name">Full Name <span class="required" aria-hidden="true">*</span></label>
+              <input
+                type="text"
+                id="contact-name"
+                name="name"
+                class="form-control"
+                placeholder="Your full name"
+                autocomplete="name"
+                required
+                aria-required="true"
+                aria-describedby="name-error">
+              <span class="form-error" id="name-error" role="alert"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contact-email">Email Address <span class="required" aria-hidden="true">*</span></label>
+              <input
+                type="email"
+                id="contact-email"
+                name="email"
+                class="form-control"
+                placeholder="your@email.com"
+                autocomplete="email"
+                required
+                aria-required="true"
+                aria-describedby="email-error">
+              <span class="form-error" id="email-error" role="alert"></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="contact-subject">Subject <span class="required" aria-hidden="true">*</span></label>
+            <select
+              id="contact-subject"
+              name="subject"
+              class="form-control"
+              required
+              aria-required="true"
+              aria-describedby="subject-error">
+              <option value="">— Select a topic —</option>
+              <option value="admissions">Admissions &amp; Applications</option>
+              <option value="programs">Program Information</option>
+              <option value="research">Research Collaboration</option>
+              <option value="visit">Campus Visit</option>
+              <option value="internship">Internship / Apprenticeship</option>
+              <option value="other">Other</option>
+            </select>
+            <span class="form-error" id="subject-error" role="alert"></span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="contact-message">Message <span class="required" aria-hidden="true">*</span></label>
+            <textarea
+              id="contact-message"
+              name="message"
+              class="form-control"
+              placeholder="Tell us how we can help you…"
+              rows="6"
+              required
+              aria-required="true"
+              aria-describedby="message-error message-hint"></textarea>
+            <span class="form-error" id="message-error" role="alert"></span>
+            <span class="form-hint" id="message-hint">Minimum 20 characters.</span>
+          </div>
+
+          <div class="form-group" style="flex-direction:row;align-items:center;gap:0.75rem;">
+            <input type="checkbox" id="gdpr-consent" name="gdpr" style="width:18px;height:18px;accent-color:var(--color-primary);flex-shrink:0;" required>
+            <label for="gdpr-consent" style="font-size:0.8rem;color:var(--text-secondary);cursor:pointer;">
+              I consent to EFREI storing my contact information to respond to this enquiry. See our <a href="#" style="color:var(--color-primary-light);">Privacy Policy</a>.
+            </label>
+          </div>
+
+          <button type="submit" id="contact-submit" class="btn btn-primary" style="width:100%;justify-content:center;">
+            Send Message →
+          </button>
+
+          <div class="form-success" id="form-success" role="status" aria-live="polite">
+            <span class="form-success-icon" aria-hidden="true">✅</span>
+            <p><strong>Message sent!</strong> Thank you — we'll be in touch within 48 hours.</p>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- Sidebar info -->
+      <aside class="contact-info-panel reveal delay-1" aria-label="Contact details">
+
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="info-icon" style="background:linear-gradient(135deg,rgba(99,102,241,0.2),rgba(99,102,241,0.05));" aria-hidden="true">📍</div>
+            <h3>Our Address</h3>
+          </div>
+          <address style="font-style:normal;font-size:0.875rem;color:var(--text-secondary);line-height:1.7;">
+            EFREI Paris — Computer Science Department<br>
+            30-32 Avenue de la République<br>
+            94800 Villejuif, France
+          </address>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="info-icon" style="background:linear-gradient(135deg,rgba(34,211,238,0.2),rgba(34,211,238,0.05));" aria-hidden="true">📞</div>
+            <h3>Phone</h3>
+          </div>
+          <p><a href="tel:+33145123456">+33 (0)1 45 12 34 56</a></p>
+          <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.35rem;">Mon–Fri, 9:00–17:00 CET</p>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="info-icon" style="background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(245,158,11,0.05));" aria-hidden="true">✉️</div>
+            <h3>Email</h3>
+          </div>
+          <p><a href="mailto:info@efrei.fr">info@efrei.fr</a></p>
+          <p><a href="mailto:admissions@efrei.fr">admissions@efrei.fr</a></p>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="info-icon" style="background:linear-gradient(135deg,rgba(16,185,129,0.2),rgba(16,185,129,0.05));" aria-hidden="true">🗺️</div>
+            <h3>Find Us</h3>
+          </div>
+          <div class="map-placeholder" role="img" aria-label="Map placeholder showing EFREI location in Villejuif, Paris">
+            <span aria-hidden="true">🗺️</span>
+            <p>Villejuif, Paris — 94800</p>
+            <p style="font-size:0.75rem;color:var(--text-muted);margin-top:0.25rem;">Metro: Line 7 — Villejuif–Léo Lagrange</p>
+          </div>
+        </div>
+
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ===== OFFICE HOURS TABLE ===== -->
+<section class="hours-section section" aria-label="Office hours">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">Opening Times</span>
+      <h2 class="section-title">Office <span>Hours</span></h2>
+      <p class="section-desc">When you can visit us in person or reach us by phone.</p>
+    </div>
+
+    <div class="table-wrapper reveal" style="max-width:700px;margin:0 auto;">
+      <table>
+        <caption style="text-align:left;padding:1rem 1.5rem;color:var(--text-muted);font-size:0.875rem;">
+          Departmental Office — Academic Year 2025–2026
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">Day</th>
+            <th scope="col">Reception Hours</th>
+            <th scope="col">Admissions</th>
+            <th scope="col">Student Services</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Monday</strong></td>
+            <td>09:00 – 17:00</td>
+            <td>09:00 – 12:00</td>
+            <td>13:00 – 17:00</td>
+          </tr>
+          <tr>
+            <td><strong>Tuesday</strong></td>
+            <td>09:00 – 17:00</td>
+            <td>09:00 – 17:00</td>
+            <td>09:00 – 17:00</td>
+          </tr>
+          <tr>
+            <td><strong>Wednesday</strong></td>
+            <td>09:00 – 17:00</td>
+            <td>09:00 – 12:00</td>
+            <td>12:00 – 17:00</td>
+          </tr>
+          <tr>
+            <td><strong>Thursday</strong></td>
+            <td>09:00 – 17:00</td>
+            <td>09:00 – 17:00</td>
+            <td>09:00 – 17:00</td>
+          </tr>
+          <tr>
+            <td><strong>Friday</strong></td>
+            <td>09:00 – 16:00</td>
+            <td>09:00 – 12:00</td>
+            <td>09:00 – 14:00</td>
+          </tr>
+          <tr>
+            <td><strong>Saturday</strong></td>
+            <td colspan="3" style="color:var(--text-muted);font-style:italic;">Closed</td>
+          </tr>
+          <tr>
+            <td><strong>Sunday</strong></td>
+            <td colspan="3" style="color:var(--text-muted);font-style:italic;">Closed</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="faq-section section" aria-label="Frequently asked questions">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">FAQ</span>
+      <h2 class="section-title">Have <span>Questions?</span></h2>
+      <p class="section-desc">Common questions about admissions, campus visits, and more.</p>
+    </div>
+
+    <div class="accordion-group" style="max-width:760px;margin:0 auto;" role="list">
+
+      <div class="accordion-item reveal" role="listitem">
+        <button class="accordion-header" aria-expanded="false" id="cfaq1-btn" aria-controls="cfaq1-body">
+          How do I apply to EFREI's Computer Science programs?
+          <span class="accordion-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="accordion-body" id="cfaq1-body" role="region" aria-labelledby="cfaq1-btn">
+          Applications are submitted through the Parcoursup platform for Bachelor's programs (French students), and directly via EFREI's online application portal for international and Master's students. Deadlines are typically in February–March for the following academic year.
+        </div>
+      </div>
+
+      <div class="accordion-item reveal delay-1" role="listitem">
+        <button class="accordion-header" aria-expanded="false" id="cfaq2-btn" aria-controls="cfaq2-body">
+          Are scholarships or financial aid available?
+          <span class="accordion-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="accordion-body" id="cfaq2-body" role="region" aria-labelledby="cfaq2-btn">
+          Yes. EFREI participates in the national scholarship system (CROUS), and the school also offers merit-based grants and social assistance funds. Additional funding is available through apprenticeship contracts, where your employer pays your tuition.
+        </div>
+      </div>
+
+      <div class="accordion-item reveal delay-2" role="listitem">
+        <button class="accordion-header" aria-expanded="false" id="cfaq3-btn" aria-controls="cfaq3-body">
+          Can I visit the campus before applying?
+          <span class="accordion-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="accordion-body" id="cfaq3-body" role="region" aria-labelledby="cfaq3-btn">
+          Absolutely! EFREI holds Open House events (Portes Ouvertes) twice a year — typically in November and January. You can also book individual campus tours by contacting the admissions office through the form above.
+        </div>
+      </div>
+
+      <div class="accordion-item reveal delay-3" role="listitem">
+        <button class="accordion-header" aria-expanded="false" id="cfaq4-btn" aria-controls="cfaq4-body">
+          I'm an international student — what support is available?
+          <span class="accordion-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="accordion-body" id="cfaq4-body" role="region" aria-labelledby="cfaq4-btn">
+          EFREI has a dedicated International Relations Office to assist with visa applications, housing, language courses, and campus integration. We also have an active international student community and partnerships with 200+ universities worldwide through the Erasmus+ program.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer id="site-footer" aria-label="Site footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="site-logo" aria-label="EFREI home">
+          <div class="logo-mark" aria-hidden="true">E</div>
+          <div class="logo-text">
+            <span class="logo-title">EFREI Paris</span>
+            <span class="logo-sub">Computer Science Dept.</span>
+          </div>
+        </a>
+        <p>Forming engineers who solve real-world challenges through technology, innovation, and ethics.</p>
+      </div>
+      <nav class="footer-col" aria-label="Quick links footer">
+        <h5>Navigation</h5>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="faculty.html">Faculty</a></li>
+          <li><a href="student-life.html">Student Life</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-col" aria-label="Resources footer">
+        <h5>Resources</h5>
+        <ul>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="student-life.html">Events Calendar</a></li>
+          <li><a href="courses.html">Program Catalogue</a></li>
+          <li><a href="about.html">About the Project</a></li>
+        </ul>
+      </nav>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="mailto:info@efrei.fr">info@efrei.fr</a></li>
+          <li><a href="tel:+33145123456">+33 (0)1 45 12 34 56</a></li>
+          <li><address style="font-style:normal;color:var(--text-secondary);font-size:0.875rem;">30-32 Avenue de la République<br>94800 Villejuif, France</address></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 EFREI Paris — Computer Science Department. All rights reserved.</p>
+      <div class="footer-social" aria-label="Social media links">
+        <a href="#" class="social-icon" aria-label="LinkedIn">in</a>
+        <a href="#" class="social-icon" aria-label="Twitter/X">𝕏</a>
+        <a href="#" class="social-icon" aria-label="GitHub">⌥</a>
+        <a href="about.html" class="social-icon" aria-label="About the project">ℹ</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button id="back-to-top" aria-label="Scroll back to top">↑</button>
+
+<script src="../assets/js/nav.js"></script>
+<script src="../assets/js/animations.js"></script>
+<script src="../assets/js/forms.js"></script>
+
+</body>
+</html>
