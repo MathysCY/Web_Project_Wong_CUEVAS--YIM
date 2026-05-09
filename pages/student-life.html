@@ -14,55 +14,6 @@
   <link rel="stylesheet" href="../assets/css/responsive.css">
   <style>
     /* ---- STUDENT LIFE STYLES ---- */
-
-    /* Gallery */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-sm);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-    }
-
-    .gallery-item {
-      position: relative;
-      overflow: hidden;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-    }
-
-    .gallery-item img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      transition: transform var(--transition-slow);
-    }
-
-    .gallery-item:hover img {
-      transform: scale(1.08);
-    }
-
-    .gallery-item-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(15, 23, 42, 0.8) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity var(--transition-base);
-      display: flex;
-      align-items: flex-end;
-      padding: var(--space-md);
-    }
-
-    .gallery-item:hover .gallery-item-overlay {
-      opacity: 1;
-    }
-
-    .gallery-caption {
-      font-size: 0.8rem;
-      color: #fff;
-      font-weight: 500;
-    }
-
     /* Clubs */
     .clubs-section {
       background: var(--bg-secondary);
@@ -446,9 +397,20 @@
 
   <!-- ===== PAGE HERO ===== -->
   <main>
-    <section class="page-hero" aria-label="Student life hero">
+    <section class="page-hero" aria-label="Student life page hero">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-bg-gradient" aria-hidden="true"></div>
+
+      <!-- Animated orbs -->
       <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
       <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
+      <div class="hero-orb hero-orb-3" aria-hidden="true"></div>
+
+      <!-- Floating shapes -->
+      <div class="float-shape float-shape-1" aria-hidden="true"></div>
+      <div class="float-shape float-shape-2" aria-hidden="true"></div>
+      <div class="float-shape float-shape-3" aria-hidden="true"></div>
+
       <div class="container page-hero-content">
         <nav class="breadcrumb" aria-label="Breadcrumb">
           <a href="../index.html">Home</a>
@@ -463,75 +425,6 @@
         </p>
       </div>
     </section>
-
-    <!-- ===== GALLERY ===== -->
-    <section class="section section-blend-top" aria-label="Campus photo gallery">
-      <div class="container">
-        <div class="section-header reveal">
-          <span class="section-label">Gallery</span>
-          <h2 class="section-title">Life Through the <span>Lens</span></h2>
-          <p class="section-desc">Click any photo to view it full screen.</p>
-        </div>
-
-        <div class="gallery-grid reveal">
-
-          <div class="gallery-item" data-lightbox="../assets/images/Campus.png"
-            data-caption="EFREI Campus — Villejuif, Paris" role="button" tabindex="0"
-            aria-label="View full image: EFREI Campus exterior">
-            <img src="../assets/images/Campus.png" alt="EFREI campus modern architecture" loading="lazy">
-            <div class="gallery-item-overlay">
-              <span class="gallery-caption">EFREI Campus</span>
-            </div>
-          </div>
-
-          <div class="gallery-item" data-lightbox="../assets/images/cs_lab.png"
-            data-caption="Computer Science Laboratory" role="button" tabindex="0" aria-label="View full image: CS Lab">
-            <img src="../assets/images/Cs Labo.jpg" alt="Students coding in the CS lab" loading="lazy">
-            <div class="gallery-item-overlay">
-              <span class="gallery-caption">CS Lab</span>
-            </div>
-          </div>
-
-          <div class="gallery-item" data-lightbox="../assets/images/student_hackathon.png"
-            data-caption="Spring Hackathon 2026" role="button" tabindex="0"
-            aria-label="View full image: Spring Hackathon">
-            <img src="../assets/images/student_hackathon.png" alt="Students collaborating at hackathon" loading="lazy">
-            <div class="gallery-item-overlay">
-              <span class="gallery-caption">Spring Hackathon 2026</span>
-            </div>
-          </div>
-
-          <div class="gallery-item" data-lightbox="../assets/images/campus_library.png" data-caption="Digital Library"
-            role="button" tabindex="0" aria-label="View full image: Digital Library">
-            <img src="../assets/images/campus_library.png" alt="EFREI digital library interior" loading="lazy">
-            <div class="gallery-item-overlay">
-              <span class="gallery-caption">Digital Library</span>
-            </div>
-          </div>
-
-          <div class="gallery-item" data-lightbox="../assets/images/faculty_1.png"
-            data-caption="Faculty at EFREI — Dedication to Excellence" role="button" tabindex="0"
-            aria-label="View full image: Faculty member">
-            <img src="../assets/images/faculty_1.png" alt="Professor in lecture hall" loading="lazy">
-            <div class="gallery-item-overlay">
-              <span class="gallery-caption">Faculty Excellence</span>
-            </div>
-          </div>
-
-          <div class="gallery-item" data-lightbox="../assets/images/student_hackathon.png"
-            data-caption="Collaborative Innovation" role="button" tabindex="0"
-            aria-label="View full image: Collaborative innovation event">
-            <img src="../assets/images/student_hackathon.png" alt="Students collaborating on a project" loading="lazy"
-              style="filter:hue-rotate(30deg);">
-            <div class="gallery-item-overlay">
-              <span class="gallery-caption">Collaborative Innovation</span>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
     <!-- ===== STUDENT CLUBS ===== -->
     <section class="clubs-section section" aria-label="Student clubs and associations">
       <div class="container">
@@ -737,7 +630,7 @@
           <h5>Contact</h5>
           <ul>
             <li><a href="mailto:info@efrei.fr">info@efrei.fr</a></li>
-            <li><a href="tel:+33145123456">+33 (0)1 45 12 34 56</a></li>
+            <li><a href="tel:+33145123456">+33 (0)7 82 29 17 91</a></li>
             <li>
               <address style="font-style:normal;color:var(--text-secondary);font-size:0.875rem;">30-32 Avenue de la
                 République<br>94800 Villejuif, France</address>

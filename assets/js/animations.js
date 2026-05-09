@@ -73,9 +73,13 @@
     const suffix = el.getAttribute('data-suffix') || '';
     const prefix = el.getAttribute('data-prefix') || '';
     const duration = parseInt(el.getAttribute('data-duration') || '2000', 10);
-    const start = performance.now();
+    const delay = parseInt(el.getAttribute('data-delay') || '0', 10);
+    let start = 0;
+
+    el.classList.add('is-counting');
 
     function update(now) {
+      if (!start) start = now;
       const elapsed = now - start;
       const progress = Math.min(elapsed / duration, 1);
       // Ease out cubic
@@ -84,36 +88,40 @@
       el.textContent = prefix + value.toLocaleString() + suffix;
       if (progress < 1) {
         requestAnimationFrame(update);
+      } else {
+        el.classList.remove('is-counting');
       }
     }
 
-    requestAnimationFrame(update);
+    window.setTimeout(function () {
+      requestAnimationFrame(update);
+    }, delay);
   }
 
   function initCounters() {
     const counters = document.querySelectorAll('[data-target]');
     if (!counters.length) return;
 
-    if (prefersReducedMotion) {
-      counters.forEach(function (el) {
-        const target = parseInt(el.getAttribute('data-target'), 10) || 0;
-        const suffix = el.getAttribute('data-suffix') || '';
-        const prefix = el.getAttribute('data-prefix') || '';
-        el.textContent = prefix + target.toLocaleString() + suffix;
-      });
-      return;
+    function startCounter(el, observer) {
+      if (el.dataset.countStarted === 'true') return;
+      el.dataset.countStarted = 'true';
+      el.textContent = '0';
+      animateCounter(el);
+      if (observer) observer.unobserve(el);
     }
 
     const observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
-          animateCounter(entry.target);
-          observer.unobserve(entry.target);
+          startCounter(entry.target, observer);
         }
       });
-    }, { threshold: 0.5 });
+    }, { threshold: 0.2, rootMargin: '0px 0px -8% 0px' });
 
-    counters.forEach(function (el) { observer.observe(el); });
+    counters.forEach(function (el) {
+      el.textContent = '0';
+      observer.observe(el);
+    });
   }
 
   /* ===================================================
@@ -240,12 +248,13 @@
     ];
 
     let phraseIndex = 0;
-    let charIndex = phrases[0].length;
+    let charIndex = 0;
     let isDeleting = false;
     let typingTimer;
 
     function type() {
       const current = phrases[phraseIndex];
+
       if (isDeleting) {
         charIndex--;
       } else {
@@ -265,9 +274,10 @@
         speed = 400;
       }
 
-      typingTimer = setTimeout(type, speed);
+      typingTimer = window.setTimeout(type, speed);
     }
 
+    el.textContent = '';
     type();
   }
 

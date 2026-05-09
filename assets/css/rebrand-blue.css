@@ -223,3 +223,20 @@ body {
 .cta-banner h2 {
   text-wrap: balance;
 }
+
+.stat-number.is-counting {
+  animation: stat-pop 0.55s ease-out;
+  text-shadow: 0 0 18px rgba(96, 214, 255, 0.18);
+}
+
+@keyframes stat-pop {
+  0% {
+    transform: translateY(8px) scale(0.94);
+    opacity: 0.4;
+  }
+
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}

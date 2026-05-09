@@ -45,7 +45,7 @@
     .hero-content {
       position: relative;
       z-index: 2;
-      padding: calc(var(--header-height) + 3rem) 0 3rem;
+      padding: var(--header-height) 0;
       width: 100%;
     }
 
@@ -87,8 +87,9 @@
       min-height: 1.3em;
       color: var(--color-primary);
       font-weight: 600;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+      text-shadow: 0 0 2px rgba(255, 255, 255, 0.8);
     }
+
 
     .hero-desc {
       font-size: 1.1rem;
@@ -524,22 +525,26 @@
         <div class="hero-stats">
 
           <div class="stat-item reveal">
-            <span class="stat-number" data-target="3200" data-suffix="+" aria-label="3200 plus students">0</span>
+            <span class="stat-number" data-target="3200" data-suffix="+" data-duration="1800" data-delay="0"
+              aria-label="3200 plus students">0</span>
             <p class="stat-label">Students</p>
           </div>
 
           <div class="stat-item reveal delay-1">
-            <span class="stat-number" data-target="120" data-suffix="+" aria-label="120 plus faculty">0</span>
+            <span class="stat-number" data-target="120" data-suffix="+" data-duration="1600" data-delay="140"
+              aria-label="120 plus faculty">0</span>
             <p class="stat-label">Faculty Members</p>
           </div>
 
           <div class="stat-item reveal delay-2">
-            <span class="stat-number" data-target="40" data-suffix="+" aria-label="40 plus programs">0</span>
+            <span class="stat-number" data-target="40" data-suffix="+" data-duration="1400" data-delay="280"
+              aria-label="40 plus programs">0</span>
             <p class="stat-label">Programs</p>
           </div>
 
           <div class="stat-item reveal delay-3">
-            <span class="stat-number" data-target="95" data-suffix="%" aria-label="95 percent employment rate">0</span>
+            <span class="stat-number" data-target="95" data-suffix="%" data-duration="1500" data-delay="420"
+              aria-label="95 percent employment rate">0</span>
             <p class="stat-label">Employment Rate</p>
           </div>
 
@@ -781,7 +786,7 @@
           <h5>Contact</h5>
           <ul>
             <li><a href="mailto:info@efrei.fr">info@efrei.fr</a></li>
-            <li><a href="tel:+33145123456">+33 (0)1 45 12 34 56</a></li>
+            <li><a href="tel:+33145123456">+33 (0)7 82 29 17 91</a></li>
             <li>
               <address style="font-style:normal;color:var(--text-secondary);font-size:0.875rem;">30-32 Avenue de la
                 République<br>94800 Villejuif, France</address>
